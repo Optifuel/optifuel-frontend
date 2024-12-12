@@ -36,7 +36,7 @@ export function passwordMatchValidator(c: AbstractControl) {
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, CalendarModule, InputText, FloatLabel, Button, Select, ReactiveFormsModule],
-  providers: [DatePipe, MessageService, userService],
+  providers: [DatePipe],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   encapsulation: ViewEncapsulation.None,

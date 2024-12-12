@@ -5,11 +5,14 @@ import { RegisterComponent } from '../register/register.component';
 import { DialogService } from '../../services/dialog.service';
 import { ConfirmAccountComponent } from '../confirm-account/confirm-account.component';
 import { Dialog } from 'primeng/dialog'; 
+import { userService } from '../../services/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
   imports: [CommonModule, LoginComponent, RegisterComponent, Dialog, ConfirmAccountComponent],
+  providers: [DialogService, MessageService, userService],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss'
 })

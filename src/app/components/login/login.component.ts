@@ -27,7 +27,7 @@ import { ToastService } from '../../services/toast.service';
     FloatLabel,
     ConfirmAccountComponent,
   ],
-  providers: [userService, ToastService],
+  providers: [],
   animations: [],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
