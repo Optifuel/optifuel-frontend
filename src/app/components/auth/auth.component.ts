@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
@@ -14,7 +14,8 @@ import { MessageService } from 'primeng/api';
   imports: [CommonModule, LoginComponent, RegisterComponent, Dialog, ConfirmAccountComponent],
   providers: [DialogService, MessageService, userService],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  styleUrl: './auth.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class AuthComponent {
   isRegistered: boolean = true;
