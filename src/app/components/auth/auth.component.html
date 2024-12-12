@@ -1,0 +1,9 @@
+<div class="auth-wrapper">
+    <app-login *ngIf="isRegistered" (showConfirmAccount)="showConfirmAccount()" (toggle)="toggleRegistration()"></app-login>
+    <app-register *ngIf="!isRegistered" (showConfirmAccount)="showConfirmAccount()" (toggle)="toggleRegistration()"></app-register>
+</div>
+
+<p-dialog [visible]="this.confirmAccountDialog" [modal]="true" header="Confirm email" appendTo="body" [closeOnEscape]="false"
+    [draggable]="false" [resizable]="false" [closable]="false" [style]="{ width: 'auto', heigth: 'auto' }">
+    <app-confirm-account></app-confirm-account>
+</p-dialog>

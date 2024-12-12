@@ -1,0 +1,129 @@
+<div class="form-wrapper">
+  <form [formGroup]="form" method="post" (ngSubmit)="proceedRegistration()">
+
+    <h2>Register</h2>
+
+    <ng-container *ngIf="!showContinueButton">
+
+      <div class="card">
+        <p-floatlabel>
+          <input pInputText id="username" type="text" autocomplete="off" formControlName="name" required />
+          <label for="name">Name</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="card">
+        <p-floatlabel>
+          <input pInputText id="lastname" type="text" autocomplete="off" formControlName="surname" required />
+          <label for="lastname">Lastname</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="card">
+        <p-floatlabel>
+          <input pInputText id="email" type="email" autocomplete="off" formControlName="email" required />
+          <label for="email">Email</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="card">
+        <p-floatlabel>
+          <p-calendar formControlName="dateBirth" appendTo="body" dateFormat="dd/mm/yy"></p-calendar>
+          <label for="dateBirth">Date of birth</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="card">
+        <p-button [style]="{'width': '100%'}" label="Continue" severity="secondary" type="button" size="small"
+          (click)="onContinue()" />
+      </div>
+
+    </ng-container>
+
+    <div class="row" *ngIf="showContinueButton">
+
+      <div class="col">
+
+        <div class="card">
+          <p-floatlabel>
+            <p-select [style]="{'width': '-webkit-fill-available !important'}" id="drivingLicense"
+              formControlName="drivingLicense" [options]="driveLicences" optionValue="name" optionLabel="name"
+              styleClass="dropdown" />
+            <label for="drivingLicense">License Type</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="card">
+          <p-floatlabel>
+            <p-calendar formControlName="deadLine" appendTo="body" dateFormat="dd/mm/yy"></p-calendar>
+            <label for="date">Driving license expiration</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="card">
+          <p-floatlabel>
+            <input pInputText id="address" type="text" autocomplete="off" formControlName="address" required />
+            <label for="address">Address</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="card">
+          <p-button [style]="{'width': '100%'}" label="Back" severity="primary" type="button" size="small"
+            (click)="onContinue()" />
+        </div>
+
+      </div>
+
+      <div class="col">
+
+        <div class="card">
+          <p-floatlabel>
+            <input pInputText id="businessName" type="text" autocomplete="off" formControlName="businessName"
+              required />
+            <label for="businessName">Business Name</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="card">
+          <p-floatlabel>
+            <input pInputText id="password" type="password" autocomplete="off" formControlName="password" required />
+            <label for="password">Password</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="card">
+          <p-floatlabel>
+            <input pInputText id="password" type="password" autocomplete="off" formControlName="repeatPassword"
+              required />
+            <label for="repeatPassword">Password</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="card">
+          <p-button [style]="{'width': '100%'}" label="Register" severity="secondary" type="button" size="small"
+            [disabled]="!form.valid" (click)="proceedRegistration()" />
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div *ngIf="showContinueButton">
+      <div *ngIf="form.invalid">
+        <div>
+          <p class="text-danger text-center text-red-500">
+            Compile all the fields
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-link">
+      <p>Already have an account?</p>
+      <a (click)="onToggle()" class="ml-2 cursor-pointer text-white">Login</a>
+      <!-- <p-button (click)="onToggle()" [text]="true" styleClass="text-white"
+            class="tableButton cursor-pointer">Accedi</p-button> -->
+    </div>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<div>
+    <form [formGroup]="confirmEmailForm" method="post" (ngSubmit)="confirmEmail()">
+      
+      <span class="otp">
+        <label>Insert code</label>
+        <p-inputotp formControlName="confirmCode" [required]="true" [length]="6" [integerOnly]="true" />
+      </span>
+
+      <div class="button">
+        <p-button severity="secondary" type="submit">Confirm</p-button>
+      </div>
+
+    </form>
+  </div>
