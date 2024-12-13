@@ -43,6 +43,24 @@
             }
         }
     }
+
+    .p-inputtext, .p-select, .p-select-overlay, .p-datepicker-panel {
+        width: 100%;
+        color: var(--p-gray-100) !important;
+        background-color: rgba(from var(--p-gray-200) r g b / 0.2) !important;
+        box-shadow: inset 0 0 35px rgba(34, 34, 34, 0.2) !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(208, 208, 208, 0.2) !important;
+    
+        &:enabled:hover {
+            border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+    
+        &:enabled:focus {
+            border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+    }
+    
 }
 
 .login-link {
@@ -73,22 +91,6 @@ h2 {
     mix-blend-mode: hard-light;
 }
 
-.p-inputtext, .p-select, .p-select-overlay, .p-datepicker-panel, .p-dialog {
-    width: 100%;
-    color: var(--p-gray-100) !important;
-    background-color: rgba(from var(--p-gray-200) r g b / 0.2) !important;
-    box-shadow: inset 0 0 35px rgba(34, 34, 34, 0.2) !important;
-    border-radius: 8px !important;
-    border: 1px solid rgba(208, 208, 208, 0.2) !important;
-
-    &:enabled:hover {
-        border-color: rgba(255, 255, 255, 0.2) !important;
-    }
-
-    &:enabled:focus {
-        border-color: rgba(255, 255, 255, 0.2) !important;
-    }
-}
 
 .p-datepicker-panel {
     --p-datepicker-date-hover-background: rgba(from var(--p-gray-50) r g b / 0.2);
@@ -115,7 +117,7 @@ h2 {
     border-color: transparent !important;
 }
 
-.p-select-overlay, .p-datepicker-panel, .p-dialog {
+.p-select-overlay, .p-datepicker-panel {
     backdrop-filter: blur(15px) !important;
 }
 
