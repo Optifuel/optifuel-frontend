@@ -1,5 +1,5 @@
 <!-- <p-toast preventOpenDuplicates="true" appendTo="body"></p-toast> -->
-<div class="form-wrapper sign-in" *ngIf="showBox">
+<div class="form-wrapper">
 
   <form [formGroup]="form" method="post" (ngSubmit)="sendLoginRequest()">
 
@@ -25,14 +25,8 @@
     
     <div class="signup-link">
       <p>Don't have an account?</p>
-      <a (click)="onToggle()">Register</a>
-      <!-- <p-button (onClick)="onToggle()" [text]="true" styleClass="text-white">Registrati</p-button> -->
+      <a (click)="goToRegister()">Register</a>
     </div>
     
   </form>
-  
-  <p-dialog [visible]="this.confirmAccountDialog" [modal]="true" header="Confirm email" appendTo="body" [closeOnEscape]="false"
-    [draggable]="false" [resizable]="false" [closable]="false" [style]="{ width: 'auto', heigth: 'auto' }">
-    <app-confirm-account></app-confirm-account>
-  </p-dialog>
 </div>

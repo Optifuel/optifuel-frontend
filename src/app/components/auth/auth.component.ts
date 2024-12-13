@@ -1,18 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../login/login.component';
-import { RegisterComponent } from '../register/register.component';
-import { DialogService } from '../../services/dialog.service';
+import { RouterOutlet } from '@angular/router';
+
 import { ConfirmAccountComponent } from '../confirm-account/confirm-account.component';
+
 import { Dialog } from 'primeng/dialog'; 
-import { userService } from '../../services/user.service';
 import { MessageService } from 'primeng/api';
+
+import { UserService } from '../../services/user.service';
+import { DialogService } from '../../services/dialog.service';
+import { ShellService } from '../../services/shell.service';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, LoginComponent, RegisterComponent, Dialog, ConfirmAccountComponent],
-  providers: [DialogService, MessageService, userService],
+  imports: [CommonModule, RouterOutlet, Dialog, ConfirmAccountComponent],
+  providers: [DialogService, MessageService, UserService, ShellService],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
   encapsulation: ViewEncapsulation.None
@@ -22,7 +25,8 @@ export class AuthComponent {
   confirmAccountDialog: boolean = false;
 
   constructor(
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private shell: ShellService
   ) {}
 
   ngOnInit() {
@@ -30,14 +34,10 @@ export class AuthComponent {
       (confirmAccountDialog:any) =>
         (this.confirmAccountDialog = confirmAccountDialog)
     );
-  }
 
-  toggleRegistration() {
-    this.isRegistered = !this.isRegistered;
-  }
-
-  showConfirmAccount() {
-    this.dialogService.changeConfirmDialog(true);
+    this.shell.subscribeToEvent('showConfirmDialog', () => {
+      this.dialogService.changeConfirmDialog(true);
+    });
   }
 
 }

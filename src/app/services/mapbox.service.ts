@@ -33,7 +33,3 @@ export class MapboxService {
     });
   }
 }
-
-
-"http://127.0.0.1:5294/api/MapBox/FindGasStation?licensePlate=FB558GL&percentTank=90&initLongitude=41.125784&initLatitude=16.862029&endLongitude=45.067755&endLatitude=7.682489"
-"http://localhost:5294/api/MapBox/FindGasStation?licensePlate=FB558GL&percentTank=90&initLongitude=16.862029&initLatitude=41.125784&endLongitude=7.682489&endLatitude=45.067755"

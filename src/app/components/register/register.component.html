@@ -93,8 +93,7 @@
 
         <div class="card">
           <p-floatlabel>
-            <input pInputText id="password" type="password" autocomplete="off" formControlName="repeatPassword"
-              required />
+            <input pInputText id="password" type="password" autocomplete="off" formControlName="repeatPassword" required />
             <label for="repeatPassword">Password</label>
           </p-floatlabel>
         </div>
@@ -121,9 +120,7 @@
 
     <div class="login-link">
       <p>Already have an account?</p>
-      <a (click)="onToggle()" class="ml-2 cursor-pointer text-white">Login</a>
-      <!-- <p-button (click)="onToggle()" [text]="true" styleClass="text-white"
-            class="tableButton cursor-pointer">Accedi</p-button> -->
+      <a (click)="goToLogin()">Login</a>
     </div>
   </form>
 </div>

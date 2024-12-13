@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DatePipe } from '@angular/common';
-import { Output, EventEmitter } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { ReactiveFormsModule } from '@angular/forms';
+
 import {
   FormControl,
   FormBuilder,
@@ -10,13 +11,16 @@ import {
   AbstractControl,
   FormGroup,
 } from '@angular/forms';
+
 import { MessageService } from 'primeng/api';
 import { CalendarModule } from 'primeng/calendar';
 import { Select } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
 import { Button } from 'primeng/button';
-import { userService } from '../../services/user.service';
+
+import { UserService } from '../../services/user.service';
+import { ShellService } from '../../services/shell.service';
 
 interface driveLicences {
   name: string;
@@ -43,9 +47,6 @@ export function passwordMatchValidator(c: AbstractControl) {
 })
 export class RegisterComponent {
 
-  @Output() toggle = new EventEmitter<void>();
-  @Output() showConfirmAccount = new EventEmitter<void>();
-
   showContinueButton = false;
   driveLicences: driveLicences[] | undefined;
   selectedDriveLicence: driveLicences | undefined;
@@ -67,14 +68,14 @@ export class RegisterComponent {
     ];
   }
 
-  onToggle() {
-    this.toggle.emit();
-  }
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
     private datePipe: DatePipe,
     private messageService: MessageService,
-    private userService: userService,
+    private userService: UserService,
+    private shell: ShellService
   ) {
     //Build the form
     this.form = this.fb.group(
@@ -113,6 +114,10 @@ export class RegisterComponent {
     );
   }
 
+  goToLogin() {
+    this.router.navigate(['login'], { relativeTo: this.route });
+  }
+
   proceedRegistration() {
     const tempDate = new Date(this.form.value.dateBirth);
     const tempDate2 = new Date(this.form.value.deadLine);
@@ -145,7 +150,9 @@ export class RegisterComponent {
           detail: 'Registration completed',
         });
         this.form.reset();
-        this.showConfirmAccount.emit();
+
+        // Show the confirm dialog
+        this.shell.emitEvent('showConfirmDialog', {});
       } else {
         this.messageService.add({
           severity: 'error',

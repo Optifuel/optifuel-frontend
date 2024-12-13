@@ -5,7 +5,8 @@ export const environment = {
     mapbox_script: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js',
     mapbox_css: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js',
     mapbox_style: 'mapbox://styles/mapbox/streets-v12',
-    mapbox_navigator_script: 'https://api.mapbox.com/directions/v5/mapbox/driving/'
+    mapbox_navigator_script: 'https://api.mapbox.com/directions/v5/mapbox/driving/',
+    mapbox_search: 'https://api.mapbox.com/search/searchbox/v1/suggest/'
   };
 
   

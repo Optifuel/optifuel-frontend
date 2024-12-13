@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { userService } from "../../services/user.service";
+import { UserService } from "../../services/user.service";
 import { DialogService } from "../../services/dialog.service";
 import { ButtonModule } from 'primeng/button';import { InputMask } from 'primeng/inputmask';
 import { ToastService } from '../../services/toast.service';
@@ -23,7 +23,7 @@ export class ConfirmAccountComponent {
   confirmEmailForm: FormGroup;
   confirmAccountDialog: boolean = false;
   constructor(
-    private userService: userService,
+    private UserService: UserService,
     private toastService: ToastService,
     private router: Router,
     private dialogsService: DialogService,
@@ -44,7 +44,7 @@ export class ConfirmAccountComponent {
   confirmEmail() {
     const email = sessionStorage.getItem('email');
     this.confirmEmailForm?.reset();
-    this.userService
+    this.UserService
       .verifyEmail(email, this.confirmEmailForm?.value.confirmCode)
       .subscribe((data: any) => {
         console.log(data.message);

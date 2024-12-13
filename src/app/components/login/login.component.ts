@@ -2,8 +2,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { ConfirmAccountComponent } from '../confirm-account/confirm-account.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // PrimeNG components imports
 import { Button } from 'primeng/button';
@@ -12,8 +11,9 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { DialogModule } from 'primeng/dialog';
 
 // Services imports
-import { userService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
+import { ShellService } from '../../services/shell.service';
 
 @Component({
   selector: 'app-login',
@@ -24,31 +24,27 @@ import { ToastService } from '../../services/toast.service';
     Button,
     DialogModule,
     InputText,
-    FloatLabel,
-    ConfirmAccountComponent,
+    FloatLabel
   ],
-  providers: [],
-  animations: [],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
 
-  @Output() toggle = new EventEmitter<void>();
-  @Output() showConfirmAccount = new EventEmitter<void>();
-
   emailRegex: any = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   form: FormGroup;
   showBox: boolean = true;
   userdata: any;
-  confirmAccountDialog: boolean = false;
 
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userService: userService,
-    private toastService: ToastService
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private toastService: ToastService,
+    private shell: ShellService
+
   ) {
     this.form = this.fb.group({
       email: new FormControl('', [
@@ -59,14 +55,13 @@ export class LoginComponent {
     });
   }
 
-  onToggle() {
-    this.toggle.emit();
-    this.showBox = !this.showBox;
-  }
-
   sendLoginRequest() {
     console.log(this.form.value);
     this.form.reset();
+  }
+
+  goToRegister() {
+    this.router.navigate(['register'], { relativeTo: this.route });
   }
 
   checkCorrectPassword() {
@@ -83,7 +78,9 @@ export class LoginComponent {
           this.toastService.showError('Not found', "User not found");  
         } else if (error.status === 400 && error.error.code === 102) {
           this.toastService.showWarn('Warning', "Account must be activated");
-          this.showConfirmAccount.emit();
+          
+          // Show confirm account dialog
+          this.shell.emitEvent('showConfirmDialog', {});
         } else if (error.status === 400) {
           this.toastService.showError('Error', "Wrong password");
         }

@@ -8,7 +8,8 @@
     <app-auth class="auth-modal" *ngIf="showAuth"></app-auth>
 
     <div class="button-container">
-        <p-button severity="secondary" [label]="showAuth ? 'Back' : 'Get Started' " size="large" (onClick)="goToAuth()"></p-button>
+        <p-button *ngIf="!showAuth" severity="secondary" label="Get Started" size="large" (onClick)="goToAuth()"></p-button>
+        <p-button *ngIf="showAuth" severity="primary" label="Back" size="large" (onClick)="backToHome()"></p-button>
     </div>
 
 </main>
