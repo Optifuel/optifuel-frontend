@@ -4,9 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Button } from 'primeng/button';
 
-import { GlobeComponent } from '../../components/globe/globe.component';
 import { AuthComponent } from '../../components/auth/auth.component';
 import { ToastService } from '../../services/toast.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,24 +19,30 @@ import { ToastService } from '../../services/toast.service';
 export class HomeComponent {
   public showAuth = false;
 
+  private URLSubscription: Subscription | undefined;
+
   constructor(private router: Router, private route: ActivatedRoute, private toastService: ToastService) {}
 
   ngOnInit() {
-    // If route contains 'login or register' then show auth component
-    this.router.events.subscribe(() => {
-      
-      const childRoute = this.route.firstChild;
+    this.handlePathChange();
 
-      if (childRoute) {
-        childRoute.url.subscribe((segments) => {
-          const path = segments.map((segment) => segment.path).join('/');
-          this.showAuth = path === 'login' || path === 'register';
-        });
-      } else {
-        this.showAuth = false;
-      }
-    });
+    // If route contains 'login or register' then show auth component
+    this.router.events.subscribe(this.handlePathChange.bind(this));
     
+  }
+
+  handlePathChange() {
+    const childRoute = this.route.firstChild;
+
+    if (childRoute) {
+      this.URLSubscription?.unsubscribe();
+      this.URLSubscription = childRoute.url.subscribe((segments) => {
+        const path = segments[0].path;
+        this.showAuth = path === 'login' || path === 'register';
+      });
+    } else {
+      this.showAuth = false;
+    }
   }
 
   goToAuth() {

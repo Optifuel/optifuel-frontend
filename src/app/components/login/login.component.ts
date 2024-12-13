@@ -44,7 +44,6 @@ export class LoginComponent {
     private userService: UserService,
     private toastService: ToastService,
     private shell: ShellService
-
   ) {
     this.form = this.fb.group({
       email: new FormControl('', [
@@ -56,12 +55,11 @@ export class LoginComponent {
   }
 
   sendLoginRequest() {
-    console.log(this.form.value);
     this.form.reset();
   }
 
   goToRegister() {
-    this.router.navigate(['register'], { relativeTo: this.route });
+    this.router.navigate(['register'], { relativeTo: this.route.parent });
   }
 
   checkCorrectPassword() {
@@ -71,17 +69,22 @@ export class LoginComponent {
         sessionStorage.setItem('email', this.userdata.data.email);
         sessionStorage.setItem('token', this.userdata.data.token);
         sessionStorage.setItem('user', JSON.stringify(this.userdata.data));
-        this.router.navigate(['/gestione']);
+
+        // Redirect to dashbord
+        this.router.navigate(['dashbord']);
       },
       (error) => {
         if (error.status === 400 && error.error.code === 101) {
+          // User Not Found
           this.toastService.showError('Not found', "User not found");  
         } else if (error.status === 400 && error.error.code === 102) {
+          // Account Must Be Activatesd
           this.toastService.showWarn('Warning', "Account must be activated");
           
           // Show confirm account dialog
           this.shell.emitEvent('showConfirmDialog', {});
         } else if (error.status === 400) {
+          // Wrong Password
           this.toastService.showError('Error', "Wrong password");
         }
       }

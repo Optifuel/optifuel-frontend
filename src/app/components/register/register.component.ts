@@ -115,7 +115,7 @@ export class RegisterComponent {
   }
 
   goToLogin() {
-    this.router.navigate(['login'], { relativeTo: this.route });
+    this.router.navigate(['login'], { relativeTo: this.route.parent });
   }
 
   proceedRegistration() {

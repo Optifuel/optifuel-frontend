@@ -23,5 +23,5 @@ export const routes: Routes = [
     },
     { path: 'dashboard', component: DashboardComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', redirectTo: 'home' }
+    // { path: '**', redirectTo: 'home' }
 ];
