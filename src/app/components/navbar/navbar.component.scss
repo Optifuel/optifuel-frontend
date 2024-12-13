@@ -22,9 +22,17 @@
 
     --p-menubar-item-color: var(--p-gray-100) !important;
     --p-menubar-item-focus-color: var(--p-gray-100) !important;
-    --p-menubar-item-focus-background-color: rgba(from var(--p-gray-200) r g b / 0.1) !important;
+    --p-menubar-item-focus-background: rgba(from var(--p-gray-200) r g b / 0.2) !important;
     --p-menubar-item-icon-color: var(--p-gray-200) !important;
     --p-menubar-item-icon-focus-color: var(--p-gray-200) !important;
 
     
+}
+
+p-menubarsub {
+    width: 100%;
+}
+
+.p-menubar-separator {
+    flex-grow: 1;
 }

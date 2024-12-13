@@ -3,7 +3,6 @@ import { Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 import { Dialog } from 'primeng/dialog';
-import { Avatar } from 'primeng/avatar';
 import { Menubar } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { ViewEncapsulation } from '@angular/core';
@@ -11,7 +10,7 @@ import { ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [Avatar, Menubar],
+  imports: [Menubar],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   encapsulation: ViewEncapsulation.None

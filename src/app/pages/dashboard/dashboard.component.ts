@@ -4,7 +4,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [GlobeComponent, NavbarComponent],
+  imports: [NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
