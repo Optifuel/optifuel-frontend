@@ -4,11 +4,12 @@ import { SearchBoxComponent } from '../../components/search-box/search-box.compo
 import { Dialog } from 'primeng/dialog';
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PoiListComponent } from '../../components/poi-list/poi-list.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NavbarComponent, SearchBoxComponent, Dialog, RouterOutlet],
+  imports: [NavbarComponent, SearchBoxComponent, Dialog, RouterOutlet, PoiListComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   encapsulation: ViewEncapsulation.None

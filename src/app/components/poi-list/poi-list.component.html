@@ -1,0 +1,18 @@
+<div *ngIf="selectedPOIs.length !== 0" class="selected-poi-box">
+  <div>
+    <div *ngFor="let poi of selectedPOIs">
+      <div class="selected-poi">
+        <h3>{{ poi.properties.name }}</h3>
+        <p>{{ poi.properties.full_address }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="selected-poi-button">
+    <p-button
+      type="button"
+      icon="pi pi-compass"
+      label="Start"
+      severity="secondary"
+    ></p-button>
+  </div>
+</div>

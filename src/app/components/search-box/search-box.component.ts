@@ -6,6 +6,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { SearchService } from '../../services/search.service';
+import { ShellService } from '../../services/shell.service';
 
 @Component({
   selector: 'app-search-box',
@@ -20,9 +21,8 @@ export class SearchBoxComponent implements OnInit {
   items: any[] = [];
   value: any;
   filteredItems: any[] = [];
-  selectedPOIs: any[] = [];
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService, private shell: ShellService) {}
 
   ngOnInit(): void {}
 
@@ -32,17 +32,17 @@ export class SearchBoxComponent implements OnInit {
     this.searchService.searchSuggestions(query, sessionToken).subscribe({
       next: (data) => {
         this.items = data.suggestions;
-        console.log(data);
       },
       error: (err) => console.error('Error fetching suggestions:', err),
     });
   }
+
   addPOItoTrip(event: any): void {
     console.log('Adding POI to trip:', event.value);
     this.searchService.getPOIDetails(event.value.mapbox_id, 'f1e7b1b0-3b3b-4b3b-8b3b-3b3b3b3b3b3b').subscribe({
-      next: (data) => {
-        this.selectedPOIs = [...this.selectedPOIs, data];
-        console.log(data.features);
+      next: (data) => {        
+        this.shell.emitEvent('addPOI', data.features[0]);
+        this.value = '';
       },
       error: (err) => console.error('Error fetching POI details:', err),
     });

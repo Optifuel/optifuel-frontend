@@ -1,0 +1,44 @@
+.selected-poi-box {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 30%;
+  gap: 0.5rem;
+
+  color: var(--p-gray-100) !important;
+  background-color: rgba(from var(--p-gray-200) r g b / 0.2) !important;
+  box-shadow: inset 0 0 35px rgba(34, 34, 34, 0.2) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(208, 208, 208, 0.2) !important;
+
+  backdrop-filter: blur(15px) !important;
+  padding: 1rem;
+
+  h3 {
+    font-size: medium;
+    text-align: start;
+    margin: 0;
+    height: fit-content;
+  }
+
+  p {
+    font-size: small;
+    text-align: start;
+    margin: 0;
+    height: fit-content;
+  }
+}
+.selected-poi-button {
+  width: 100%;
+  > p-button {
+    margin-top: 0.5rem;
+    width: 100%;
+    display: flex;
+    button {
+      width: 100%;
+    }
+  }
+}
+
