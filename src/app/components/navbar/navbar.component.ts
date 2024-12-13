@@ -24,10 +24,6 @@ export class NavbarComponent {
     this.router.navigate(['/home']);
   }
 
-  onAccount() {
-    this.router.navigate(['/account'], { relativeTo: this.route });
-  }
-
   ngOnInit() {
     this.items = [
       {
@@ -72,7 +68,7 @@ export class NavbarComponent {
         label: 'Account',
         icon: 'pi pi-user',
         command: () => {
-          this.onAccount();
+          this.router.navigate(['account'], { relativeTo: this.route });
         },
       },
       {

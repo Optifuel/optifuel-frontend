@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ViewEncapsulation } from '@angular/core';
+
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ButtonModule } from 'primeng/button';
+
 import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-search-box',
   standalone: true,
-  imports: [FormsModule, AutoCompleteModule, ButtonModule],
+  imports: [CommonModule, FormsModule, AutoCompleteModule],
   providers: [SearchService],
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SearchBoxComponent implements OnInit {
   items: any[] = [];
   value: any;
   filteredItems: any[] = [];
+  selectedPOIs: any[] = [];
 
   constructor(private searchService: SearchService) {}
 
@@ -27,9 +32,19 @@ export class SearchBoxComponent implements OnInit {
     this.searchService.searchSuggestions(query, sessionToken).subscribe({
       next: (data) => {
         this.items = data.suggestions;
-        console.log(this.items);
+        console.log(data);
       },
       error: (err) => console.error('Error fetching suggestions:', err),
+    });
+  }
+  addPOItoTrip(event: any): void {
+    console.log('Adding POI to trip:', event.value);
+    this.searchService.getPOIDetails(event.value.mapbox_id, 'f1e7b1b0-3b3b-4b3b-8b3b-3b3b3b3b3b3b').subscribe({
+      next: (data) => {
+        this.selectedPOIs = [...this.selectedPOIs, data];
+        console.log(data.features);
+      },
+      error: (err) => console.error('Error fetching POI details:', err),
     });
   }
 }

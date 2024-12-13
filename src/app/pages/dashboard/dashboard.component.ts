@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { SearchBoxComponent } from '../../components/search-box/search-box.component';
 import { Dialog } from 'primeng/dialog';
@@ -11,9 +11,11 @@ import { Subscription } from 'rxjs';
   imports: [NavbarComponent, SearchBoxComponent, Dialog, RouterOutlet],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent {
   public modalVisible = false;
+  public modalTitle = '';
   private URLSubscription: Subscription | undefined;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
@@ -31,12 +33,17 @@ export class DashboardComponent {
     if (childRoute) {
       this.URLSubscription?.unsubscribe();
       this.URLSubscription = childRoute.url.subscribe((segments) => {
-        // const path = segments[0].path;
+        const path = this.capitalizeFirstLetter(segments[0].path);
+        this.modalTitle = path;
         this.modalVisible = true;
       });
     } else {
       this.modalVisible = false;
     }
+  }
+
+  capitalizeFirstLetter(val: string) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
   }
 
   onModalHide() {

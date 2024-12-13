@@ -36,4 +36,17 @@ export class SearchService {
 
     return this.http.get(url, { params });
   }
+
+  getPOIDetails(
+    mapboxId: string,
+    sessionToken: string,
+  ):Observable<any> {
+    const url = `${environment.mapbox_poi_info}${mapboxId}`;
+    const params = new HttpParams()
+      .set('access_token', this.accessToken)
+      .set('session_token', sessionToken);
+
+    return this.http.get(url, { params });
+  }
+    
 }
