@@ -1,0 +1,16 @@
+.search-element{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3{
+        font-size: medium;
+        margin: 0;
+        height: fit-content;
+    }
+    p {
+        font-size: small;
+        text-align: end;
+        margin: 0;
+        height: fit-content;
+    }
+}

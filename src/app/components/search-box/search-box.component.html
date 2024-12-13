@@ -1,1 +1,13 @@
-<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
+<p-autocomplete 
+  [(ngModel)]="value" 
+  [suggestions]="items" 
+  (completeMethod)="search($event)" 
+  optionLabel="name">
+  <ng-template let-item pTemplate="item">
+    <div class="search-element">
+        <h3>{{ item.name }}</h3>
+        <p>Address: {{ item.address  || "not found"}}</p>
+    </div>
+  </ng-template>
+
+</p-autocomplete>

@@ -71,7 +71,7 @@ export class LoginComponent {
         sessionStorage.setItem('user', JSON.stringify(this.userdata.data));
 
         // Redirect to dashbord
-        this.router.navigate(['dashbord']);
+        this.router.navigate(['dashboard']);
       },
       (error) => {
         if (error.status === 400 && error.error.code === 101) {

@@ -33,22 +33,37 @@ export class NavbarComponent {
       {
         label: 'OptiFuel',
         // icon: 'pi pi-home'
+        command: () => {
+          this.router.navigate(['/dashboard']);
+        }
       },
       {
         label: 'Vehicles',
         icon: 'pi pi-car',
+        command: () => {
+          this.router.navigate(['vehicles'], { relativeTo: this.route });
+        },
       },
       {
         label: 'Guide',
         icon: 'pi pi-info-circle',
+        command: () => {
+          this.router.navigate(['guide'], { relativeTo: this.route });
+        },
       },
       {
         label: 'Project',
         icon: 'pi pi-github',
+        command: () => {
+          this.router.navigate(['project'], { relativeTo: this.route });
+        },
       },
       {
-        label: 'Contacts',
+        label: 'Credits',
         icon: 'pi pi-envelope',
+        command: () => {
+          this.router.navigate(['credits'], { relativeTo: this.route });
+        },
       },
       {
         separator: true,

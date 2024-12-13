@@ -1,2 +1,7 @@
 <app-navbar></app-navbar>
 <app-search-box></app-search-box>
+
+<p-dialog [(visible)]="modalVisible" [modal]="true" [header]="" appendTo="body" [closeOnEscape]="true"
+    [draggable]="false" [resizable]="false" [closable]="true" (onHide)="onModalHide()">
+    <router-outlet></router-outlet>
+</p-dialog>
