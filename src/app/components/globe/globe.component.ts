@@ -1,63 +1,50 @@
-import { Component, Renderer2, ViewEncapsulation} from '@angular/core';
+import { Component, Renderer2, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import * as mapboxgl from 'mapbox-gl';
 
 import { environment } from '../../../environments/environment';
-
+import { ShellService } from '../../services/shell.service';
 
 @Component({
   selector: 'app-globe',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './globe.component.html',
   styleUrl: './globe.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class GlobeComponent {
-  
   style = environment.mapbox_style;
   lat = 37.75;
   lng = -122.41;
   token: string = environment.mapbox_token;
-  
-  constructor(private renderer: Renderer2) { }
-  
+  mapInteraction = true;
+  isSpinning = true;
+  selectedPOIs: any[] = [];
+  constructor(private renderer: Renderer2, private shell: ShellService) {}
+
   ngOnInit() {
-    
-    this.loadScript(environment.mapbox_script)
-      .then(() => this.loadScript(environment.mapbox_css))
-      .then(() => this.loadScript(environment.mapbox_script))
+    loadScript(environment.mapbox_script, this.renderer)
+      .then(() => loadScript(environment.mapbox_css, this.renderer))
+      .then(() => loadScript(environment.mapbox_script, this.renderer))
       .catch((error) => console.error('Error loading scripts', error));
-      
-    
+
+    // Initialize the map
     const map = new mapboxgl.Map({
       accessToken: this.token,
       container: 'map',
       style: environment.mapbox_style,
       zoom: 1.2,
       center: [41.9027835, 12.4963655],
-      interactive: false,
+      interactive: this.mapInteraction,
       scrollZoom: false,
     });
-
+    // Create the pulsing dot
     const size = 200;
-
-    interface StyleImageInterface {
-      width: number;
-      height: number;
-      data: Uint8Array;
-      onAdd: () => void;
-      render: () => boolean;
-      context?: CanvasRenderingContext2D;
-    }
-
     const pulsingDot: StyleImageInterface = {
-      // This implements `StyleImageInterface`
-      // to draw a pulsing dot icon on the map.
       width: size,
       height: size,
       data: new Uint8Array(size * size * 4),
-      // When the layer is added to the map,
-      // get the rendering context for the map canvas.
       onAdd: function () {
         const canvas = document.createElement('canvas');
         canvas.width = this.width;
@@ -65,7 +52,6 @@ export class GlobeComponent {
         this.context = canvas.getContext('2d')!;
       },
 
-      // Call once before every frame where the icon will be used.
       render: function () {
         const duration = 1000;
         const t = (performance.now() % duration) / duration;
@@ -106,8 +92,7 @@ export class GlobeComponent {
             this.context.getImageData(0, 0, this.width, this.height).data.buffer
           );
 
-          // Continuously repaint the map, resulting
-          // in the smooth animation of the dot.
+          // Continuously repaint the map, resulting in the smooth animation of the dot.
           map.triggerRepaint();
 
           // Return `true` to let the map know that the image was updated.
@@ -118,7 +103,7 @@ export class GlobeComponent {
         }
       },
     };
-
+    // Add the pulsing dot to the map
     map.on('load', () => {
       map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
       let coordinates;
@@ -155,69 +140,95 @@ export class GlobeComponent {
           source: 'dot-point',
           layout: {
             'icon-image': 'pulsing-dot',
-            //Change the size and the color of the pulsing dot here
             'icon-size': 0.3,
-            visibility: 'visible', // Ensure the layer is visible
+            visibility: 'visible',
           },
         });
-
-        // Check if the layer exists and is valid
         if (!map.getLayer('layer-with-pulsing-dot')) {
           console.error('layer-with-pulsing-dot does not exist');
         }
       });
     });
-
+    // Add the fog effect
     map.on('style.load', () => {
-      map.setFog({}); // Set the default atmosphere style
-      spinGlobe();
+      map.setFog({});
     });
 
-    // The following values can be changed to control rotation speed:
-
-    // At low zooms, complete a revolution every two minutes.
-    const secondsPerRevolution = 120;
-    // Above zoom level 5, do not rotate.
-    const maxSpinZoom = 5;
-    // Rotate at intermediate speeds between zoom levels 3 and 5.
-    const slowSpinZoom = 3;
-
-    let userInteracting = false;
-    let spinEnabled = true;
-
-    function spinGlobe() {
-      const zoom = map.getZoom();
-      if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-        let distancePerSecond = 360 / secondsPerRevolution;
-        if (zoom > slowSpinZoom) {
-          // Slow spinning at higher zooms
-          const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-          distancePerSecond *= zoomDif;
-        }
-        const center = map.getCenter();
-        center.lng -= distancePerSecond;
-        // Smoothly animate the map over one second.
-        // When this animation is complete, it calls a 'moveend' event.
-        map.easeTo({ center, duration: 1000, easing: (n) => n });
-      }
-    }
-    spinGlobe();
-
-    // When animation is complete, start spinning if there is no ongoing interaction
+    // emit the spinning value
+    this.shell.subscribeToEvent('mapSpinning', (spinning: boolean) => {
+      this.isSpinning = spinning;
+    });
+    spinGlobe(map, this.isSpinning);
     map.on('moveend', () => {
-      spinGlobe();
+      spinGlobe(map, this.isSpinning);
     });
+    managePOIsInsertion(map, this.shell);
   }
-
-  loadScript(src: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const script = this.renderer.createElement('script');
-      script.src = src;
-      script.onload = () => resolve();
-      script.onerror = (error: any) => reject(error);
-      this.renderer.appendChild(document.body, script);
-    });
-  }
-
 }
 
+interface StyleImageInterface {
+  width: number;
+  height: number;
+  data: Uint8Array;
+  onAdd: () => void;
+  render: () => boolean;
+  context?: CanvasRenderingContext2D;
+}
+
+function loadScript(src: string, renderer: Renderer2): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const script = renderer.createElement('script');
+    script.src = src;
+    script.onload = () => resolve();
+    script.onerror = (error: any) => reject(error);
+    renderer.appendChild(document.body, script);
+  });
+}
+
+function spinGlobe(map: mapboxgl.Map, isSpinning: boolean) {
+  const secondsPerRevolution = 120;
+  const maxSpinZoom = 5;
+  const slowSpinZoom = 3;
+  const zoom = map.getZoom();
+  if (zoom < maxSpinZoom && isSpinning) {
+    let distancePerSecond = 360 / secondsPerRevolution;
+    if (zoom > slowSpinZoom) {
+      const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
+      distancePerSecond *= zoomDif;
+    }
+    const center = map.getCenter();
+    center.lng -= distancePerSecond;
+    map.easeTo({ center, duration: 1000, easing: (n) => n });
+  }
+}
+
+function managePOIsInsertion(map: mapboxgl.Map, shell: ShellService) {
+  const selectedPOIs: any[] = [];
+  shell.subscribeToEvent('addPOI', (poi: any) => {
+    selectedPOIs.push(poi);
+    console.log(poi);
+    shell.emitEvent('mapSpinning', false);
+    map.easeTo({
+      center: poi.geometry.coordinates,
+      zoom: 8,
+      duration: 1000,
+    });
+    // center the map on the POI
+    map.addSource(poi.properties.name, {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: selectedPOIs,
+      },
+    });
+    map.addLayer({
+      id: poi.properties.name,
+      type: 'circle',
+      source: poi.properties.name,
+      paint: {
+        'circle-radius': 10,
+        'circle-color': '#FF0000',
+      },
+    });
+  });
+}

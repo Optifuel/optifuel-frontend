@@ -20,6 +20,7 @@ export class HomeComponent {
   public showAuth = false;
 
   private URLSubscription: Subscription | undefined;
+  public selectedPOIs: any[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private toastService: ToastService) {}
 
@@ -30,7 +31,6 @@ export class HomeComponent {
     this.router.events.subscribe(this.handlePathChange.bind(this));
     
   }
-
   handlePathChange() {
     const childRoute = this.route.firstChild;
 

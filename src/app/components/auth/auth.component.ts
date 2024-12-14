@@ -15,7 +15,7 @@ import { ShellService } from '../../services/shell.service';
   selector: 'app-auth',
   standalone: true,
   imports: [CommonModule, RouterOutlet, Dialog, ConfirmAccountComponent],
-  providers: [DialogService, MessageService, UserService, ShellService],
+  providers: [DialogService, MessageService, UserService],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
   encapsulation: ViewEncapsulation.None

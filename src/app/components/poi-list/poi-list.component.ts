@@ -20,7 +20,6 @@ export class PoiListComponent {
   ngOnInit() {
     this.shell.subscribeToEvent('addPOI', (poi: any) => {
       this.selectedPOIs.push(poi);
-      console.log(this.selectedPOIs);
     });
   }
   

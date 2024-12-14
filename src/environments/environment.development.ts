@@ -5,8 +5,8 @@ export const environment = {
     mapbox_script: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js',
     mapbox_css: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js',
     mapbox_style: 'mapbox://styles/mapbox/streets-v12',
-    mapbox_search: 'https://api.mapbox.com/search/searchbox/v1/suggest',
-    mapbox_poi_info: 'https://api.mapbox.com/search/searchbox/v1/retrieve/'
+    mapbox_search: 'https://api.mapbox.com/search/searchbox/v1/suggest', // for the search req
+    mapbox_poi_info: 'https://api.mapbox.com/search/searchbox/v1/retrieve/' // for the info about a single poi
 
 };
 
