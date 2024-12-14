@@ -14,14 +14,20 @@ import { ShellService } from '../../services/shell.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class GlobeComponent {
-  style = environment.mapbox_style;
-  lat = 37.75;
-  lng = -122.41;
-  token: string = environment.mapbox_token;
-  mapInteraction = true;
-  isSpinning = true;
-  selectedPOIs: any[] = [];
-  constructor(private renderer: Renderer2, private shell: ShellService) {}
+
+  public style = environment.mapbox_style;
+  public lat = 37.75;
+  public lng = -122.41;
+  public mapInteraction = true;
+  public isSpinning = true;
+
+  private token: string = environment.mapbox_token;
+  private selectedPOIs: any[] = [];
+
+  constructor(
+    private renderer: Renderer2,
+    private shell: ShellService
+  ) {}
 
   ngOnInit() {
     loadScript(environment.mapbox_script, this.renderer)
@@ -39,6 +45,31 @@ export class GlobeComponent {
       interactive: this.mapInteraction,
       scrollZoom: false,
     });
+
+    // Add the pulsing dot
+    this.addPulsingDot(map);
+    
+    // Add the fog effect
+    map.on('style.load', () => {
+      map.setFog({});
+    });
+
+    // Emit the spinning value
+    this.shell.subscribeToEvent('mapSpinning', (spinning: boolean) => {
+      this.isSpinning = spinning;
+    });
+
+    // Manage the spinning of the globe
+    spinGlobe(map, this.isSpinning);
+    map.on('moveend', () => {
+      spinGlobe(map, this.isSpinning);
+    });
+
+    // Manage the insertion of POIs
+    managePOIsInsertion(map, this.shell);
+  }
+
+  public addPulsingDot(map: mapboxgl.Map) {
     // Create the pulsing dot
     const size = 200;
     const pulsingDot: StyleImageInterface = {
@@ -103,6 +134,7 @@ export class GlobeComponent {
         }
       },
     };
+    
     // Add the pulsing dot to the map
     map.on('load', () => {
       map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
@@ -149,20 +181,6 @@ export class GlobeComponent {
         }
       });
     });
-    // Add the fog effect
-    map.on('style.load', () => {
-      map.setFog({});
-    });
-
-    // emit the spinning value
-    this.shell.subscribeToEvent('mapSpinning', (spinning: boolean) => {
-      this.isSpinning = spinning;
-    });
-    spinGlobe(map, this.isSpinning);
-    map.on('moveend', () => {
-      spinGlobe(map, this.isSpinning);
-    });
-    managePOIsInsertion(map, this.shell);
   }
 }
 

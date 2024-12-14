@@ -21,8 +21,8 @@ import { ShellService } from '../../services/shell.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AuthComponent {
-  isRegistered: boolean = true;
-  confirmAccountDialog: boolean = false;
+  public isRegistered: boolean = true;
+  public confirmAccountDialog: boolean = false;
 
   constructor(
     private dialogService: DialogService,

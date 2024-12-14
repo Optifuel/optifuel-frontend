@@ -31,11 +31,11 @@ import { ShellService } from '../../services/shell.service';
 })
 export class LoginComponent {
 
-  emailRegex: any = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  form: FormGroup;
-  showBox: boolean = true;
-  userdata: any;
+  public form: FormGroup;
+  public showBox: boolean = true;
 
+  private emailRegex: any = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  private userdata: any;
 
   constructor(
     private fb: FormBuilder,

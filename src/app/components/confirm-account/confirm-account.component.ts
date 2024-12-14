@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } 
 
 import { UserService } from "../../services/user.service";
 import { DialogService } from "../../services/dialog.service";
-import { ButtonModule } from 'primeng/button';import { InputMask } from 'primeng/inputmask';
+import { ButtonModule } from 'primeng/button';
 import { ToastService } from '../../services/toast.service';
 import { Toast } from 'primeng/toast';
 import { InputOtp } from 'primeng/inputotp';
@@ -14,16 +14,18 @@ import { InputOtp } from 'primeng/inputotp';
 @Component({
   selector: 'app-confirm-account',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, InputMask, InputOtp],
+  imports: [ReactiveFormsModule, ButtonModule, InputOtp],
   templateUrl: './confirm-account.component.html',
   styleUrl: './confirm-account.component.scss'
 })
 export class ConfirmAccountComponent {
-  confirmCode: string | undefined;
-  confirmEmailForm: FormGroup;
-  confirmAccountDialog: boolean = false;
+  
+  public confirmCode: string | undefined;
+  public confirmEmailForm: FormGroup;
+  public confirmAccountDialog: boolean = false;
+  
   constructor(
-    private UserService: UserService,
+    private userService: UserService,
     private toastService: ToastService,
     private router: Router,
     private dialogsService: DialogService,
@@ -43,15 +45,21 @@ export class ConfirmAccountComponent {
 
   confirmEmail() {
     const email = sessionStorage.getItem('email');
+    
     this.confirmEmailForm?.reset();
-    this.UserService
+    
+    this.userService
       .verifyEmail(email, this.confirmEmailForm?.value.confirmCode)
       .subscribe((data: any) => {
         console.log(data.message);
-        if ((data.message = 'Success')) {
+        
+        if (data.message === 'Success') {
           this.toastService.showSuccess('Success', 'Your account has been verified');
+          
           sessionStorage.removeItem('email');
-          this.dialogsService.changeConfirmDialog(false); 
+          this.dialogsService.changeConfirmDialog(false);
+          
+          this.router.navigate(['/dashboard']);
         } else {
           this.toastService.showError('Error', 'Your account has not been verified');
         }
