@@ -1,15 +1,11 @@
 main {
-    color: var(--p-gray-100);
+    color: var(--glass-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 100vh;
-    
-    h1 {
-        mix-blend-mode: hard-light;
-    }
 }
 
 .title-container {
@@ -50,17 +46,4 @@ main {
     flex-grow: 1;
 
     width: min(90%, 40rem) !important;
-
-    border: 0px solid transparent !important;
-
-    &::before {
-        position: absolute;
-        content: "";
-        inset: 0;
-        background-color: transparent;
-        border: 1px solid rgba(235, 235, 235, 0.2);
-        mix-blend-mode: hard-light;
-        border-radius: var(--glass-panel-border-radius);
-        pointer-events: none; /* Allow interactions with underlying elements */
-    }
 }

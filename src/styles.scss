@@ -19,13 +19,24 @@ a:hover{
     cursor: pointer;
 }
 
+.glass-light {
+    --glass-background-color: rgba(from var(--p-gray-100) r g b / 0.6);
+    --glass-color: var(--p-gray-950);
+    --glass-icon-color: var(--p-gray-900);
+    --glass-border-color: rgba(from var(--p-gray-600) r g b / 0.2);
+    --glass-box-shadow: 0 0 40px rgba(60, 60, 60, 0.1);
+    --glass-blur-amount: 20px;
+    --glass-panel-border-radius: 18px;
+    --glass-border-radius: 8px;
+}
+
 .glass {
-    --glass-background-color: rgba(from var(--p-gray-200) r g b / 0.2);
+    --glass-background-color: rgba(from var(--p-gray-500) r g b / 0.6);
     --glass-color: var(--p-gray-100);
     --glass-icon-color: var(--p-gray-200);
     --glass-border-color: rgba(from var(--p-gray-50) r g b / 0.2);
-    --glass-box-shadow: 0 0 35px rgba(34, 34, 34, 0.2);
-    --glass-blur-amount: 15px;
+    --glass-box-shadow: 0 0 40px rgba(60, 60, 60, 0.1);
+    --glass-blur-amount: 20px;
     --glass-panel-border-radius: 18px;
     --glass-border-radius: 8px;
 
@@ -54,8 +65,8 @@ a:hover{
     --p-autocomplete-option-active-background: rgba(from var(--p-gray-200) r g b / 0.2) !important;
     --p-autocomplete-option-active-color: var(--p-gray-100) !important;
 
-    .p-dialog, .p-autocomplete-overlay, .auth-modal {
-        width: auto !important;
+    .p-dialog, .p-autocomplete-overlay, .auth-modal, .glass-panel {
+        width: auto;
 
         color: var(--glass-color) !important;
         background-color: var(--glass-background-color) !important;
@@ -74,18 +85,16 @@ a:hover{
         --p-button-text-secondary-hover-background: var(--glass-background-color);
     }
 
-    .p-inputtext, .p-select, .p-select-overlay, .p-datepicker-panel {
+    .p-inputtext, .p-select, .p-select-overlay, .p-datepicker-panel, .selected-poi-box {
         width: 100%;
 
         color: var(--glass-color) !important;
-        background-color: var(--glass-background-color) !important;
+        background-color: rgba(from var(--glass-background-color) r g b / 0.1) !important;
         
         box-shadow: inset var(--glass-box-shadow) !important;
         
         border-radius: var(--glass-border-radius) !important;
         border: 1px solid var(--glass-border-color) !important;
-
-        backdrop-filter: blur(var(--glass-blur-amount)) !important;
       
         &:enabled:hover {
             border-color: var(--glass-border-color) !important;
@@ -93,6 +102,10 @@ a:hover{
       
         &:enabled:focus {
             border-color: var(--glass-border-color) !important;
+        }
+
+        &::placeholder {
+            color: rgba(from var(--glass-color) r g b / 0.5) !important;
         }
     }
 
@@ -108,6 +121,8 @@ a:hover{
     }
     
     .p-select-overlay, .p-datepicker-panel {
+        width: auto !important;
+        z-index: 10000;
         backdrop-filter: blur(var(--glass-blur-amount)) !important;
     }
     
@@ -141,31 +156,21 @@ a:hover{
         --p-menubar-item-icon-color: var(--glass-icon-color) !important;
         --p-menubar-item-icon-focus-color: var(--glass-icon-color) !important;
     }
-
-    .selected-poi-box {
-        color: var(--glass-color) !important;
-        background-color: var(--glass-background-color) !important;
-        
-        box-shadow: inset var(--glass-box-shadow) !important;
-        
-        border-radius: var(--glass-border-radius) !important;
-        border: 1px solid var(--glass-border-color) !important;
-
-        backdrop-filter: blur(var(--glass-blur-amount)) !important;
-    }
     
     .p-datepicker-panel {
         --p-datepicker-date-hover-background: var(--glass-border-color);
 
         --p-datepicker-date-selected-background: var(--glass-background-color);
-        --p-datepicker-today-background: var(--glass-background-color);
-    
+        --p-datepicker-today-background: var(--glass-border-color);
+
         --p-button-text-primary-hover-background: var(--glass-background-color);
         --p-button-text-primary-active-background: var(--glass-background-color);
     
         --p-datepicker-select-month-hover-background: var(--glass-border-color);
         --p-datepicker-select-year-hover-background: var(--glass-border-color);
     
+        --p-button-primary-active-border-color: var(--glass-border-color);
+        --p-button-text-primary-hover-background: var(--glass-border-color);
 
         background-color: var(--glass-background-color) !important;
     

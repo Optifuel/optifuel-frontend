@@ -1,7 +1,10 @@
 <app-navbar></app-navbar>
-<app-search-box></app-search-box>
 
-<app-poi-list></app-poi-list>
+<div class="glass-panel">
+    <h3>Calculate route</h3>
+    <app-search-box></app-search-box>
+    <app-poi-list></app-poi-list>
+</div>
 
 <p-dialog [(visible)]="modalVisible" [modal]="true" [header]="modalTitle" appendTo="body" [closeOnEscape]="true"
     [draggable]="false" [resizable]="false" [closable]="true" (onHide)="onModalHide()">

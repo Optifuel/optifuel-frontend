@@ -5,6 +5,7 @@
   (completeMethod)="search($event)"
   (onSelect)="addPOItoTrip($event)"
   optionLabel="name"
+  [maxlength]="10"
 >
   <ng-template let-item pTemplate="item">
     <div class="search-element">

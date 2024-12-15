@@ -1,3 +1,26 @@
 app-search-box {
+  width: 100%;
+}
+
+app-poi-list {
+  width: 100%;
+}
+
+.glass-panel {
     margin: 0.5rem;
+
+    width: min(40%, 30rem) !important;
+    border-radius: 12px !important;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 1rem;
+    gap: 0.5rem;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
 }
