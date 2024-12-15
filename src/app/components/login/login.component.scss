@@ -6,10 +6,6 @@
 
   height: 100%;
 
-  --p-floatlabel-color: var(--p-gray-100);
-  --p-floatlabel-focus-color: var(--p-gray-100);
-  --p-floatlabel-active-color: var(--p-gray-100);
-
   >form {
     display: flex;
     text-align: center;
@@ -50,22 +46,9 @@
 }
 
 h2 {
-  color: var(--p-gray-100);
+  color: var(--glass-color);
 }
 
 .p-inputtext {
   width: 100%;
-  color: var(--p-gray-100) !important;
-  background-color: rgba(from var(--p-gray-200) r g b / 0.2) !important;
-  box-shadow: inset 0 0 35px rgba(34, 34, 34, 0.2) !important;
-  border-radius: 8px !important;
-  border: 1px solid rgba(208, 208, 208, 0.2) !important;
-
-  &:enabled:hover {
-      border-color: rgba(255, 255, 255, 0.2) !important;
-  }
-
-  &:enabled:focus {
-      border-color: rgba(255, 255, 255, 0.2) !important;
-  }
 }

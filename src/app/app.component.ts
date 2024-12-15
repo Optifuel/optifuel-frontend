@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,6 @@ import { ShellService } from './services/shell.service';
     HttpClientModule,
     CommonModule,
     GlobeComponent,
-    NavigatorComponent,
     Toast,
   ],
   providers: [HttpClient, MessageService, ToastService, ShellService],
@@ -28,6 +27,7 @@ import { ShellService } from './services/shell.service';
 })
 export class AppComponent {
   title = 'optifuel-frontend';
+
   // selectedPOIs: any[] = [];
   // showNavigator = false;
   // constructor(private shell: ShellService) {}

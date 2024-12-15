@@ -49,14 +49,9 @@ main {
     margin-inline: 3rem;
     flex-grow: 1;
 
-    width: min(90%, 40rem);
+    width: min(90%, 40rem) !important;
 
-    // set background using glass effect translucent
-    background-color: rgba(from var(--p-gray-700) r g b / 0.3);
-    // border: 1px solid rgba(233, 233, 233, 0.2);
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    border-radius: 18px;
+    border: 0px solid transparent !important;
 
     &::before {
         position: absolute;
@@ -65,7 +60,7 @@ main {
         background-color: transparent;
         border: 1px solid rgba(235, 235, 235, 0.2);
         mix-blend-mode: hard-light;
-        border-radius: 18px;
+        border-radius: var(--glass-panel-border-radius);
         pointer-events: none; /* Allow interactions with underlying elements */
     }
 }
