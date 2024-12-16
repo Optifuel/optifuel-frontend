@@ -52,7 +52,9 @@ export class PoiListComponent {
         longitude: poi.geometry.coordinates[1]
       }
     });
-    console.log(coordinates)
+
+    console.log(coordinates);
+    
     this.mapbox.FindGasStation("FY915JV", 50, coordinates).subscribe((response) => {
       console.log(response);
     });

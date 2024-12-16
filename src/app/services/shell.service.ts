@@ -13,7 +13,17 @@ export class ShellService {
   public POIs: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public confirmDialog: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  public navigationPath: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor() {}
+
+  updateNavigationPath(path: any): void {
+    this.navigationPath.next(path);
+  }
+
+  clearNavigationPath(): void {
+    this.navigationPath.next(null);
+  }
 
   gotoPOI(poi: any): void {
     this.gotoPOIEvent.emit(poi);
