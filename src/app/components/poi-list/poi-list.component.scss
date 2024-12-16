@@ -24,6 +24,29 @@
   }
 }
 
+.selected-poi-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  
+  width: 100%;
+  gap: 0.5rem;
+
+  list-style-position: inside;
+
+  .selected-poi {
+    width: 100%;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--glass-border-color);
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
 .selected-poi-button {
   width: 100%;
   

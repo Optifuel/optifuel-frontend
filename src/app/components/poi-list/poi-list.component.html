@@ -1,12 +1,10 @@
 <div *ngIf="selectedPOIs.length !== 0" class="selected-poi-box">
-  <div>
-    <div *ngFor="let poi of selectedPOIs">
-      <div class="selected-poi">
+  <ol class="selected-poi-list">
+    <li class="selected-poi" *ngFor="let poi of selectedPOIs">
         <h3>{{ poi.properties.name }}</h3>
         <p>{{ poi.properties.full_address }}</p>
-      </div>
-    </div>
-  </div>
+    </li>
+  </ol>
   <div class="selected-poi-button">
     <p-button
       type="button"
