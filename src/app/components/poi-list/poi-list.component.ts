@@ -54,7 +54,7 @@ export class PoiListComponent {
     });
 
     console.log(coordinates);
-    
+    // temporary test code -> change the license plate to a dynamic one and the thank actual capacity to a dynamic one 
     this.mapbox.FindGasStation("FY915JV", 2, coordinates).subscribe((response) => {
       console.log(response);
     });
