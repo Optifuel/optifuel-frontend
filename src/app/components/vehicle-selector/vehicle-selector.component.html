@@ -1,12 +1,22 @@
-<p-floatlabel>
+<div class="container">
   <p-select
-    [style]="{ width: '-webkit-fill-available !important' }"
     id="vehicle"
     [(ngModel)]="selectedVehicle"
     [options]="vehicles"
     optionValue="model"
+    placeholder="Select vehicle"
     optionLabel="model"
-    styleClass="dropdown"
+    styleClass="dropdown vehicle-selector"
   />
-  <label for="vehicle">Vehicle</label>
-</p-floatlabel>
+
+  <!--Numeric input to set tank percentage-->
+  <p-inputNumber
+    id="tank"
+    [(ngModel)]="tank"
+    placeholder="Tank percentage"
+    [min]="0"
+    [max]="100"
+    [showButtons]="true"
+    styleClass="tank-percentage"
+  />
+</div>
