@@ -14,20 +14,17 @@ import { ShellService } from '../../services/shell.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class GlobeComponent {
-
   public style = environment.mapbox_style;
   public lat = 37.75;
   public lng = -122.41;
   public mapInteraction = true;
   public isSpinning = true;
+  public userInteracting = false;
 
   private token: string = environment.mapbox_token;
   private selectedPOIs: any[] = [];
 
-  constructor(
-    private renderer: Renderer2,
-    private shell: ShellService
-  ) {}
+  constructor(private renderer: Renderer2, private shell: ShellService) {}
 
   ngOnInit() {
     loadScript(environment.mapbox_script, this.renderer)
@@ -36,23 +33,31 @@ export class GlobeComponent {
       .catch((error) => console.error('Error loading scripts', error));
 
     // Initialize the map
-    const map = new mapboxgl.Map({
+    let map = new mapboxgl.Map({
       accessToken: this.token,
       container: 'map',
-      style: environment.mapbox_style,
-      zoom: 1.2,
+      // style: environment.mapbox_style,
+      zoom: 1.3,
       center: [41.9027835, 12.4963655],
       interactive: this.mapInteraction,
-      scrollZoom: false,
+      style: {
+        version: 8,
+        imports: [
+          {
+            id: "basemap",
+            url: environment.mapbox_style,
+            config: {
+              lightPreset: "night"
+            }
+          }
+        ],
+        sources: {},
+        layers: []
+      }
     });
-
     // Add the pulsing dot
     this.addPulsingDot(map);
-    
-    // Add the fog effect
-    map.on('style.load', () => {
-      map.setFog({});
-    });
+
 
     // Emit the spinning value
     this.shell.subscribeToEvent('mapSpinning', (spinning: boolean) => {
@@ -60,13 +65,13 @@ export class GlobeComponent {
     });
 
     // Manage the spinning of the globe
-    spinGlobe(map, this.isSpinning);
-    map.on('moveend', () => {
-      spinGlobe(map, this.isSpinning);
-    });
+    // spinGlobe(map, this.isSpinning);
+    // map.on('moveend', () => {
+    //   spinGlobe(map, this.isSpinning);
+    // });
 
     // Manage the insertion of POIs
-    managePOIsInsertion(map, this.shell);
+    map = managePOIsInsertion(map, this.shell, this.renderer);
   }
 
   public addPulsingDot(map: mapboxgl.Map) {
@@ -114,7 +119,7 @@ export class GlobeComponent {
           );
           this.context.fillStyle = 'rgba(45, 85, 255, 1)';
           this.context.strokeStyle = 'white';
-          this.context.lineWidth = 2 + 4 * (1 - t);
+          this.context.lineWidth = 6 + 4 * (1 - t);
           this.context.fill();
           this.context.stroke();
 
@@ -134,7 +139,7 @@ export class GlobeComponent {
         }
       },
     };
-    
+
     // Add the pulsing dot to the map
     map.on('load', () => {
       map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
@@ -220,33 +225,54 @@ function spinGlobe(map: mapboxgl.Map, isSpinning: boolean) {
   }
 }
 
-function managePOIsInsertion(map: mapboxgl.Map, shell: ShellService) {
+function managePOIsInsertion(
+  map: mapboxgl.Map,
+  shell: ShellService,
+  renderer: Renderer2
+): mapboxgl.Map {
   const selectedPOIs: any[] = [];
   shell.subscribeToEvent('addPOI', (poi: any) => {
     selectedPOIs.push(poi);
-    console.log(poi);
     shell.emitEvent('mapSpinning', false);
     map.easeTo({
       center: poi.geometry.coordinates,
-      zoom: 8,
+      zoom: 12,
       duration: 1000,
     });
+    new mapboxgl.Marker().setLngLat([poi.geometry.coordinates[0], poi.geometry.coordinates[1]]).addTo(map);
     // center the map on the POI
-    map.addSource(poi.properties.name, {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: selectedPOIs,
-      },
-    });
-    map.addLayer({
-      id: poi.properties.name,
-      type: 'circle',
-      source: poi.properties.name,
-      paint: {
-        'circle-radius': 10,
-        'circle-color': '#FF0000',
-      },
-    });
+    // map.addSource(poi.properties.name, {
+    //   type: 'geojson',
+    //   data: {
+    //     type: 'FeatureCollection',
+    //     features: selectedPOIs,
+    //   },
+    // });
+    // map.addLayer({
+    //   id: poi.properties.name,
+    //   type: 'circle',
+    //   source: poi.properties.name,
+    //   paint: {
+    //     'circle-radius': 10,
+    //     'circle-color': '#FF0000',
+    //   },
+    // });
   });
+  if (selectedPOIs.length > 0) {
+    const map = new mapboxgl.Map({
+      accessToken: environment.mapbox_token,
+      container: 'map',
+      style: environment.mapbox_style,
+      zoom: 1.2,
+      center: [41.9027835, 12.4963655],
+      interactive: true,
+    });
+    
+    
+    return map;
+  } else {
+    return map;
+  }
 }
+
+
