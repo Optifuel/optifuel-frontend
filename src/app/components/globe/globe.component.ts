@@ -4,6 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { environment } from '../../../environments/environment';
 import { ShellService } from '../../services/shell.service';
+import { PointLike } from 'mapbox-gl';
 
 @Component({
   selector: 'app-globe',
@@ -19,6 +20,8 @@ export class GlobeComponent {
   public lng = -122.41;
   public mapInteraction = true;
   public isSpinning = true;
+
+  public gotoOffset: PointLike = [120, 20];
 
   private token: string = environment.mapbox_token;
   private map!: mapboxgl.Map;
@@ -81,7 +84,20 @@ export class GlobeComponent {
       this.map.on('moveend', () => this.spinGlobe());
     });
 
+    this.shell.gotoPOIEvent.subscribe((poi: any) => {
+      this.gotoPOI(poi);
+    });
+
     this.managePOIsInsertion();
+  }
+
+  private gotoPOI(poi: any): void {
+    this.map.easeTo({
+      center: poi.geometry.coordinates,
+      zoom: 12,
+      duration: 1000,
+      offset: this.gotoOffset,
+    });
   }
 
   private addPulsingDot(): void {
@@ -208,11 +224,7 @@ export class GlobeComponent {
       
       // Goto the last POI
       this.shell.stopSpinningMap();
-      this.map.easeTo({
-        center: poi.geometry.coordinates,
-        zoom: 12,
-        duration: 1000,
-      });
+      this.gotoPOI(poi);
 
       // Add all markers
       pois.forEach((poi, index) => {

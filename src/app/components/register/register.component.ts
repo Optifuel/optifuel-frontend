@@ -54,20 +54,6 @@ export class RegisterComponent {
   value: string | undefined;
   form: FormGroup;
 
-  ngOnInit(): void {
-    this.driveLicences = [
-      { name: 'B' },
-      { name: 'C' },
-      { name: 'C1' },
-      { name: 'C1E' },
-      { name: 'CE' },
-      { name: 'D' },
-      { name: 'D1' },
-      { name: 'D1E' },
-      { name: 'DE' },
-    ];
-  }
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -112,6 +98,21 @@ export class RegisterComponent {
       },
       { validator: passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    this.driveLicences = [
+      { name: 'B' },
+      { name: 'C' },
+      { name: 'C1' },
+      { name: 'C1E' },
+      { name: 'CE' },
+      { name: 'D' },
+      { name: 'D1' },
+      { name: 'D1E' },
+      { name: 'DE' },
+    ];
+
   }
 
   goToLogin() {

@@ -7,11 +7,17 @@ export class ShellService {
 
   public events: Map<string, EventEmitter<any>> = new Map<string, EventEmitter<any>>();
 
+  public gotoPOIEvent: EventEmitter<any> = new EventEmitter<any>();
+
   public mapSpinning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   public POIs: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public confirmDialog: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {}
+
+  gotoPOI(poi: any): void {
+    this.gotoPOIEvent.emit(poi);
+  }
 
   addPOI(poi: any): void {
     const pois = this.POIs.value;

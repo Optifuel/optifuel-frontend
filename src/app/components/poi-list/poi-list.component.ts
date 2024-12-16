@@ -19,6 +19,10 @@ export class PoiListComponent {
 
   constructor(private shell: ShellService, private mapbox: MapboxService) { }
 
+  gotoPOI(poi: any) {
+    this.shell.gotoPOI(poi);
+  }
+
   deleteSelectedPOI(poi: any) {
     this.shell.removePOI(poi);
   }

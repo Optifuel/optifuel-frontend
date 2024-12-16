@@ -53,7 +53,6 @@ export class LoginComponent {
       password: new FormControl('', Validators.required),
     });
   }
-
   sendLoginRequest() {
     this.form.reset();
   }

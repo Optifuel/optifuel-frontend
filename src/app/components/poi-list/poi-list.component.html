@@ -2,7 +2,7 @@
   <ol class="selected-poi-list">
     <div class="poi-wrapper" *ngFor="let poi of selectedPOIs">
       <li>
-        <h3>{{ poi.properties.name }}</h3>
+        <h3 (click)="gotoPOI(poi)">{{ poi.properties.name }}</h3>
         <p>{{ poi.properties.full_address }}</p>
       </li>
       <p-button

@@ -45,9 +45,7 @@ export class ConfirmAccountComponent {
 
   confirmEmail() {
     const email = sessionStorage.getItem('email');
-    
-    this.confirmEmailForm?.reset();
-    
+      
     this.userService
       .verifyEmail(email, this.confirmEmailForm?.value.confirmCode)
       .subscribe((data: any) => {
@@ -55,6 +53,8 @@ export class ConfirmAccountComponent {
         
         if (data.message === 'Success') {
           this.toastService.showSuccess('Success', 'Your account has been verified');
+
+          this.confirmEmailForm?.reset();
           
           sessionStorage.removeItem('email');
           this.dialogsService.changeConfirmDialog(false);
