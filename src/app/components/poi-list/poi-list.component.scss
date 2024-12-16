@@ -37,16 +37,23 @@
   margin: 0;
 
   list-style-position: inside;
+}
 
-  .selected-poi {
-    width: 100%;
-    padding: 0.1rem 0.5rem;
-    border-bottom: 1px solid var(--glass-border-color);
+.poi-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 
-    &:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
+  width: 100%;
+  padding-left: 0.1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--glass-border-color);
+
+  &:last-child {
+    border-bottom: 0;
+    padding-top: 0;
   }
 }
 

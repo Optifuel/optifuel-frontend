@@ -1,17 +1,18 @@
 <div *ngIf="selectedPOIs.length !== 0" class="selected-poi-box">
   <ol class="selected-poi-list">
-    <li class="selected-poi" *ngFor="let poi of selectedPOIs">
+    <div class="poi-wrapper" *ngFor="let poi of selectedPOIs">
+      <li>
         <h3>{{ poi.properties.name }}</h3>
         <p>{{ poi.properties.full_address }}</p>
-        <!--Delete button icon only x-->
-        <p-button
-          icon="pi pi-times"
-          [rounded]="true"
-          [text]="true"
-          severity="secondary"
-          (onClick)="deleteSelectedPOI(poi)"
-        />
-    </li>
+      </li>
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="deleteSelectedPOI(poi)"
+      />
+    </div>
   </ol>
   <div class="selected-poi-button">
     <p-button
@@ -19,6 +20,7 @@
       icon="pi pi-compass"
       label="Start"
       severity="secondary"
+      (onClick)="computePath()"
     ></p-button>
   </div>
 </div>
