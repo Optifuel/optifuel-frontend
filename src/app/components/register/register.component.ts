@@ -152,7 +152,7 @@ export class RegisterComponent {
         this.form.reset();
 
         // Show the confirm dialog
-        this.shell.emitEvent('showConfirmDialog', {});
+        this.shell.showConfirmDialog();
       } else {
         this.messageService.add({
           severity: 'error',

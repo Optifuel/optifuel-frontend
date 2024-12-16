@@ -40,7 +40,7 @@ export class SearchBoxComponent implements OnInit {
   addPOItoTrip(event: any): void {
     this.searchService.getPOIDetails(event.value.mapbox_id, 'f1e7b1b0-3b3b-4b3b-8b3b-3b3b3b3b3b3b').subscribe({
       next: (data) => {        
-        this.shell.emitEvent('addPOI', data.features[0]);
+        this.shell.addPOI(data.features[0]);
         this.value = '';
       },
       error: (err) => console.error('Error fetching POI details:', err),

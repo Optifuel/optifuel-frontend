@@ -17,9 +17,13 @@ export class PoiListComponent {
 
   constructor(private shell: ShellService) { }
 
+  deleteSelectedPOI(poi: any) {
+    this.shell.removePOI(poi);
+  }
+
   ngOnInit() {
-    this.shell.subscribeToEvent('addPOI', (poi: any) => {
-      this.selectedPOIs.push(poi);
+    this.shell.POIs.subscribe(pois => {
+      this.selectedPOIs = pois;
     });
   }
   

@@ -82,7 +82,7 @@ export class LoginComponent {
           this.toastService.showWarn('Warning', "Account must be activated");
           
           // Show confirm account dialog
-          this.shell.emitEvent('showConfirmDialog', {});
+          this.shell.showConfirmDialog();
         } else if (error.status === 400) {
           // Wrong Password
           this.toastService.showError('Error', "Wrong password");

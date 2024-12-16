@@ -3,6 +3,14 @@
     <li class="selected-poi" *ngFor="let poi of selectedPOIs">
         <h3>{{ poi.properties.name }}</h3>
         <p>{{ poi.properties.full_address }}</p>
+        <!--Delete button icon only x-->
+        <p-button
+          icon="pi pi-times"
+          [rounded]="true"
+          [text]="true"
+          severity="secondary"
+          (onClick)="deleteSelectedPOI(poi)"
+        />
     </li>
   </ol>
   <div class="selected-poi-button">

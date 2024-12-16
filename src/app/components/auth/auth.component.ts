@@ -35,8 +35,8 @@ export class AuthComponent {
         (this.confirmAccountDialog = confirmAccountDialog)
     );
 
-    this.shell.subscribeToEvent('showConfirmDialog', () => {
-      this.dialogService.changeConfirmDialog(true);
+    this.shell.confirmDialog.subscribe((show) => {
+      this.dialogService.changeConfirmDialog(show);
     });
   }
 

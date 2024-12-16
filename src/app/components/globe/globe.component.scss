@@ -14,3 +14,16 @@
 .mapboxgl-control-container {
     display: none;
 }
+.custom-marker {
+    background-color: red;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid white;
+  }
