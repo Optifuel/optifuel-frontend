@@ -6,6 +6,12 @@
     <app-poi-list></app-poi-list>
 </div>
 
+<div class="glass-panel bottom-panel">
+    <h3>Vehicle</h3>
+    <app-vehicle-selector></app-vehicle-selector>
+</div>
+
+
 <p-dialog [(visible)]="modalVisible" [modal]="true" [header]="modalTitle" appendTo="body" [closeOnEscape]="true"
     [draggable]="false" [resizable]="false" [closable]="true" (onHide)="onModalHide()">
     <router-outlet></router-outlet>

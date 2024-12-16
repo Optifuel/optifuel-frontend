@@ -25,8 +25,7 @@ export class MapboxService {
   FindGasStation(licensePlate: any, percentTank: any, coordinates: object) {
     // const url = `http://${this.ip}/api/MapBox/FindGasStation?licensePlate=${licensePlate}&percentTank=${percentTank}&initLongitude=${initLongitude}&initLatitude=${initLatitude}&endLongitude=${endLongitude}&endLatitude=${endLatitude}`;
     const url = `http://${this.ip}/api/MapBox/FindGasStation?licensePlate=${licensePlate}&percentTank=${percentTank}`;
-    return this.http.post<any>(url, {
-      body: JSON.stringify(coordinates),
+    return this.http.post<any>(url, coordinates, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'text/plain',

@@ -1,0 +1,12 @@
+<p-floatlabel>
+  <p-select
+    [style]="{ width: '-webkit-fill-available !important' }"
+    id="vehicle"
+    [(ngModel)]="selectedVehicle"
+    [options]="vehicles"
+    optionValue="model"
+    optionLabel="model"
+    styleClass="dropdown"
+  />
+  <label for="vehicle">Vehicle</label>
+</p-floatlabel>

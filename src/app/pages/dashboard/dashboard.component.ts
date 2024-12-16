@@ -5,11 +5,12 @@ import { Dialog } from 'primeng/dialog';
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PoiListComponent } from '../../components/poi-list/poi-list.component';
+import { VehicleSelectorComponent } from '../../components/vehicle-selector/vehicle-selector.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NavbarComponent, SearchBoxComponent, Dialog, RouterOutlet, PoiListComponent],
+  imports: [NavbarComponent, SearchBoxComponent, Dialog, RouterOutlet, PoiListComponent, VehicleSelectorComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   encapsulation: ViewEncapsulation.None

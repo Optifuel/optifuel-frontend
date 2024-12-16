@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { GlobeComponent } from './components/globe/globe.component';
-import { NavigatorComponent } from './components/navigator/navigator.component';
 import { Toast } from 'primeng/toast';
 
 import { MessageService } from 'primeng/api';

@@ -48,14 +48,14 @@ export class PoiListComponent {
     */
     const coordinates = this.selectedPOIs.map(poi => {
       return {
-        latitude: poi.geometry.coordinates[0],
-        longitude: poi.geometry.coordinates[1]
+        latitude: poi.geometry.coordinates[1],
+        longitude: poi.geometry.coordinates[0]
       }
     });
 
     console.log(coordinates);
     
-    this.mapbox.FindGasStation("FY915JV", 50, coordinates).subscribe((response) => {
+    this.mapbox.FindGasStation("FY915JV", 2, coordinates).subscribe((response) => {
       console.log(response);
     });
   }
