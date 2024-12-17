@@ -51,7 +51,7 @@ export class PoiListComponent {
     this.mapbox.GetPath(coordinates).subscribe((response) => {
       let routes = response.routes;
       let route = routes.sort((a: any, b: any) => a.distance - b.distance);
-      this.shell.setPathCoordinates(response.routes[0].geometry.coordinates);
+      this.shell.setPathCoordinates(route[0].geometry.coordinates);
     });
   }
 }
