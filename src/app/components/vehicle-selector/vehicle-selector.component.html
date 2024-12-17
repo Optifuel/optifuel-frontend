@@ -3,11 +3,32 @@
     id="vehicle"
     [(ngModel)]="selectedVehicle"
     [options]="vehicles"
-    optionValue="model"
     placeholder="Select vehicle"
     optionLabel="model"
     styleClass="dropdown vehicle-selector"
-  />
+    (onChange)="onVehicleChange($event)"
+    (onFocus)="queryVehicles()"
+  >
+  <ng-template let-option #selectedItem>
+    <div class="vehicle-item">
+      {{option.brand}} {{option.model}} - {{option.licensePlate}}
+    </div>
+  </ng-template>
+  <ng-template let-vehicle #item>
+    <div class="vehicle-item">
+      <div class="header">
+        <h3>{{vehicle.brand}} {{vehicle.model}}</h3>
+        <span>{{vehicle.licensePlate}}</span>
+      </div>
+      
+      <div class="header">
+        <p>{{vehicle.engineDisplacement}} CC - {{vehicle.fuelType}}</p>
+        <p>{{vehicle.businessName}}</p>
+      </div>
+
+    </div>
+  </ng-template>
+  </p-select>
 
   <!--Numeric input to set tank percentage-->
   <p-inputNumber
@@ -16,7 +37,10 @@
     placeholder="Tank percentage"
     [min]="0"
     [max]="100"
+    [step]="10"
     [showButtons]="true"
-    styleClass="tank-percentage"
+    suffix="%"
+    class="tank-percentage"
+    (onInput)="onTankChange($event)"
   />
 </div>

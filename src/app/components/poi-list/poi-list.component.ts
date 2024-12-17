@@ -11,13 +11,12 @@ import { MapboxService } from '../../services/mapbox.service';
   providers: [MapboxService],
   templateUrl: './poi-list.component.html',
   styleUrl: './poi-list.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class PoiListComponent {
-
   public selectedPOIs: any[] = [];
 
-  constructor(private shell: ShellService, private mapbox: MapboxService) { }
+  constructor(private shell: ShellService, private mapbox: MapboxService) {}
 
   gotoPOI(poi: any) {
     this.shell.gotoPOI(poi);
@@ -28,36 +27,31 @@ export class PoiListComponent {
   }
 
   ngOnInit() {
-    this.shell.POIs.subscribe(pois => {
+    this.shell.POIs.subscribe((pois) => {
       this.selectedPOIs = pois;
     });
   }
   public computePath() {
-    console.log(this.selectedPOIs);
-    /*
-      Build the coordinates object:
-      [
-        {
-          "latitude": value,
-          "longitude": value
-        },
-        .
-        .
-        .
-      ]
-    */
-    const coordinates = this.selectedPOIs.map(poi => {
+    const coordinates = this.selectedPOIs.map((poi) => {
       return {
         latitude: poi.geometry.coordinates[1],
-        longitude: poi.geometry.coordinates[0]
-      }
+        longitude: poi.geometry.coordinates[0],
+      };
     });
 
-    console.log(coordinates);
-    // temporary test code -> change the license plate to a dynamic one and the thank actual capacity to a dynamic one 
-    this.mapbox.FindGasStation("FY915JV", 2, coordinates).subscribe((response) => {
-      console.log(response);
+    this.mapbox
+      .FindGasStation(
+        this.shell.selectedVehicle.value.licensePlate,
+        this.shell.selectedVehicle.value.tankLevel,
+        coordinates
+      )
+      .subscribe((response) => {
+        this.shell.setGasStation(response.data);
+      });
+    this.mapbox.GetPath(coordinates).subscribe((response) => {
+      let routes = response.routes;
+      let route = routes.sort((a: any, b: any) => a.distance - b.distance);
+      this.shell.setPathCoordinates(response.routes[0].geometry.coordinates);
     });
   }
-  
 }

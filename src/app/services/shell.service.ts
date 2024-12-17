@@ -15,6 +15,12 @@ export class ShellService {
 
   public navigationPath: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
+  public selectedVehicle: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  public pathCoordinates: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  public gasStation: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor() {}
 
   updateNavigationPath(path: any): void {
@@ -62,6 +68,30 @@ export class ShellService {
   hideConfirmDialog(): void {
     this.confirmDialog.next(false);
   }
+
+  setSelectedVehicle(vehicle: any): void {
+    this.selectedVehicle.next(vehicle);
+  };
+
+  clearSelectedVehicle(): void {
+    this.selectedVehicle.next(null);
+  };
+
+  setPathCoordinates(coordinates: any): void {
+    this.pathCoordinates.next(coordinates);
+  };
+
+  clearPathCoordinates(): void {
+    this.pathCoordinates.next(null);
+  };
+
+  setGasStation(coordinates: any): void {
+    this.gasStation.next(coordinates);
+  };
+
+  clearGasStation(): void {
+    this.gasStation.next(null);
+  };
 
   subscribeToCustomEvent(event: string, callback: any): void {
     if (!this.events.has(event)) {

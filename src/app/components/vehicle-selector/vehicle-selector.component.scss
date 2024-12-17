@@ -1,20 +1,59 @@
 .p-floatlabel {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
+  h3 {
+    margin: 0;
+  }
+
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+
+  .vehicle-selector {
+    width: 100% !important;
+  }
+
+  .tank-percentage {
+    width: 6rem !important;
+    min-width: 6rem !important;
+
+    .p-inputtext {
+      width: 6rem !important;
+      min-width: 6rem !important;
+    }
+  }
+}
+
+.vehicle-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  .header {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: start;
-    align-items: start;
+    justify-content: space-between;
+    align-items: center;
     gap: 0.5rem;
+  }
 
-    .vehicle-selector {
-        width: 100%;
-        flex-grow: 2;
-    }
+  h3 {
+    font-size: big;
+    text-align: start;
+    margin: 0;
+    height: fit-content;
+  }
 
-    .tank-percentge {
-        width: 100%;
-    }
+  p {
+    font-size: small;
+    text-align: start;
+    margin: 0;
+    height: fit-content;
+  }
 }

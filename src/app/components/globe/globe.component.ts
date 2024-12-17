@@ -89,6 +89,7 @@ export class GlobeComponent {
     });
 
     this.managePOIsInsertion();
+    this.addRoute();
   }
 
   private gotoPOI(poi: any): void {
@@ -221,7 +222,7 @@ export class GlobeComponent {
 
       // Last POI
       const poi = pois[pois.length - 1];
-      
+
       // Goto the last POI
       this.shell.stopSpinningMap();
       this.gotoPOI(poi);
@@ -237,6 +238,67 @@ export class GlobeComponent {
           .addTo(this.map);
       });
     });
+  }
+
+  private addRoute() {
+    this.shell.pathCoordinates.subscribe((coordinates: any) => {
+      if (coordinates) {
+        this.map.addLayer({
+          id: 'route',
+          type: 'line',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'LineString',
+                coordinates,
+              },
+            },
+          },
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round',
+          },
+          paint: {
+            'line-color': '#3170f0',
+            'line-width': 7,
+            'line-emissive-strength': 1,
+          },
+        });
+        this.zoomOnRoute(coordinates);
+        this.showGasStations();
+      }
+    });
+  }
+
+  private showGasStations(): void {
+    this.shell.gasStation.subscribe((gasStation: any) => {
+      if (gasStation) {
+        gasStation.forEach((station: any) => {
+          console.log(station);
+          const gasStationCoordinates: any = [station.coordinates.longitude, station.coordinates.latitude];
+          new mapboxgl.Marker()
+            .setLngLat(gasStationCoordinates)
+            .addTo(this.map);
+        });
+      }
+    });
+  }
+
+  private zoomOnRoute(coordinates: any): void {
+    if (coordinates) {
+      const bounds = coordinates.reduce((bounds: any, coord: any) => {
+        return bounds.extend(coord);
+      }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+      this.map.fitBounds(bounds, {
+        padding: 300,
+        duration: 2000,
+        offset: this.gotoOffset,
+      });
+    }
   }
 }
 

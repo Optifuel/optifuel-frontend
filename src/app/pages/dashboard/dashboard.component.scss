@@ -1,11 +1,15 @@
-app-search-box, app-poi-list, app-vehicle-selector {
+app-search-box, app-poi-list {
   width: 100%;
+}
+
+app-vehicle-selector {
+  width: 100%;
+  flex-grow: 1;
 }
 
 .glass-panel {
     margin: 0.5rem;
 
-    width: min(40%, 26rem) !important;
     border-radius: 12px !important;
 
     display: flex;
@@ -21,8 +25,24 @@ app-search-box, app-poi-list, app-vehicle-selector {
     }
 }
 
+.top-panel {
+  width: min(40%, 26rem) !important;
+}
+
 .bottom-panel {
     position: absolute;
     bottom: 0;
     right: 0;
+
+    width: min(40%, 26rem) !important;
+
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    flex-wrap: wrap;
+
+    h3 {
+      margin-block: 0;
+      margin-right: 0.5rem;
+    }
 }
