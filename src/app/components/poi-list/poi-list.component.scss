@@ -59,14 +59,33 @@
 }
 
 .selected-poi-button {
+  margin-top: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
   width: 100%;
   
-  > p-button {
-    margin-top: 0.5rem;
-    width: 100%;
+  > p-button:last-child {
+    flex-grow: 1;
     display: flex;
     
     button {
+      width: 100%;
+    }
+  }
+
+  > p-button:first-child {
+    display: flex;
+    height: 100%;
+
+    width: 3rem;
+    
+    button {
+      height: 43px;
       width: 100%;
     }
   }

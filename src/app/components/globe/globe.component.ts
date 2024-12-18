@@ -274,7 +274,7 @@ export class GlobeComponent {
   }
 
   private showGasStations(): void {
-    this.shell.gasStation.subscribe((gasStation: any) => {
+    this.shell.gasStations.subscribe((gasStation: any) => {
       if (gasStation) {
         gasStation.forEach((station: any) => {
           console.log(station);

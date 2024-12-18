@@ -31,6 +31,15 @@ export class PoiListComponent {
       this.selectedPOIs = pois;
     });
   }
+
+  public clearAll() {
+    this.shell.clearGasStations();
+    this.shell.clearNavigationPath();
+    this.shell.clearSelectedVehicle();
+    this.shell.clearPathCoordinates();
+    this.shell.clearPOIs();
+  }
+
   public computePath() {
     const coordinates = this.selectedPOIs.map((poi) => {
       return {
@@ -45,13 +54,41 @@ export class PoiListComponent {
         this.shell.selectedVehicle.value.tankLevel,
         coordinates
       )
-      .subscribe((response) => {
-        this.shell.setGasStation(response.data);
+      .subscribe((responseStations) => {
+        console.log(responseStations.data);
+        this.shell.setGasStations(responseStations.data);
+        if (responseStations) {  
+
+          // Add gas stations coordinates to coorinates and then sort by distance from start
+          coordinates.push(
+            ...responseStations.data.map((station: any) => station.coordinates)
+          );
+          
+          coordinates.sort((a: any, b: any) => {
+            return (
+              Math.sqrt(
+                Math.pow(a.latitude - coordinates[0].latitude, 2) +
+                  Math.pow(a.longitude - coordinates[0].longitude, 2)
+              ) -
+              Math.sqrt(
+                Math.pow(b.latitude - coordinates[0].latitude, 2) +
+                  Math.pow(b.longitude - coordinates[0].longitude, 2)
+              )
+            );
+          });
+
+          this.mapbox.GetPath(coordinates).subscribe((response) => {
+            let routes = response.routes;
+            let route = routes.sort(
+              (a: any, b: any) => a.distance - b.distance
+            );
+            this.shell.setPathCoordinates(responseStations.data.coordinates);
+            // add route[0].geometry.coordinates to the path coordinates (append to the already existing coordinates)
+            this.shell.setPathCoordinates(route[0].geometry.coordinates);
+          });
+        } else {
+          console.log('No path found');
+        }
       });
-    this.mapbox.GetPath(coordinates).subscribe((response) => {
-      let routes = response.routes;
-      let route = routes.sort((a: any, b: any) => a.distance - b.distance);
-      this.shell.setPathCoordinates(route[0].geometry.coordinates);
-    });
   }
 }

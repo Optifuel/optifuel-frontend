@@ -19,7 +19,7 @@ export class ShellService {
 
   public pathCoordinates: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  public gasStation: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public gasStations: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor() {}
 
@@ -51,6 +51,10 @@ export class ShellService {
       pois.splice(index, 1);
       this.POIs.next(pois);
     }
+  }
+
+  clearPOIs(): void {
+    this.POIs.next([]);
   }
 
   startSpinningMap(): void {
@@ -85,12 +89,12 @@ export class ShellService {
     this.pathCoordinates.next(null);
   };
 
-  setGasStation(coordinates: any): void {
-    this.gasStation.next(coordinates);
+  setGasStations(coordinates: any): void {
+    this.gasStations.next(coordinates);
   };
 
-  clearGasStation(): void {
-    this.gasStation.next(null);
+  clearGasStations(): void {
+    this.gasStations.next(null);
   };
 
   subscribeToCustomEvent(event: string, callback: any): void {

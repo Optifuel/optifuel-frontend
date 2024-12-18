@@ -17,6 +17,14 @@
   <div class="selected-poi-button">
     <p-button
       type="button"
+      icon="pi pi-trash"
+      severity="secondary"
+      [text]="true"
+      (onClick)="clearAll()"
+    ></p-button>
+
+    <p-button
+      type="button"
       icon="pi pi-compass"
       label="Start"
       severity="secondary"
