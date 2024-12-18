@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  
+
   width: 100%;
   gap: 0.5rem;
 
@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  
+
   width: 100%;
   gap: 0.5rem;
 
@@ -68,11 +68,11 @@
   gap: 0.5rem;
 
   width: 100%;
-  
+
   > p-button:last-child {
     flex-grow: 1;
     display: flex;
-    
+
     button {
       width: 100%;
     }
@@ -83,7 +83,7 @@
     height: 100%;
 
     width: 3rem;
-    
+
     button {
       height: 43px;
       width: 100%;
@@ -91,3 +91,17 @@
   }
 }
 
+.stations-box {
+  > h3 {
+    margin-top: 0.5rem;
+  }
+}
+.scrollable-list {
+  max-height: 200px;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  margin: 0; 
+}
+.scrollable-list::-webkit-scrollbar {
+  display: none; 
+}

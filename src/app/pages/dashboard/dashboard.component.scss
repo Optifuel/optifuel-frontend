@@ -1,4 +1,5 @@
-app-search-box, app-poi-list {
+app-search-box,
+app-poi-list {
   width: 100%;
 }
 
@@ -8,21 +9,43 @@ app-vehicle-selector {
 }
 
 .glass-panel {
-    margin: 0.5rem;
+  margin: 0.5rem;
 
-    border-radius: 12px !important;
+  border-radius: 12px !important;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 1rem;
+  gap: 0.5rem;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    padding: 1rem;
-    gap: 0.5rem;
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
+  }
+  .top-panel-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .p-button {
+      background: transparent;
+      border-color: transparent;
+      margin-bottom: 0.2rem;
+      color: var(--p-button-text-secondary-color);
     }
+    .p-button:not(:disabled):hover {
+      background: var(--p-button-text-secondary-hover-background);
+      border-color: transparent;
+      color: var(--p-button-text-secondary-color);
+    }
+    .p.button:not(:disabled):active {
+      background: var(--p-button-text-secondary-active-background);
+      border-color: transparent;
+      color: var(--p-button-text-secondary-color);
+    }
+  }
 }
 
 .top-panel {
@@ -30,19 +53,19 @@ app-vehicle-selector {
 }
 
 .bottom-panel {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
-    width: min(40%, 26rem) !important;
+  width: min(40%, 26rem) !important;
 
-    display: flex;
-    flex-direction: column;
-    // align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  flex-wrap: wrap;
 
-    h3 {
-      margin-block: 0;
-      margin-right: 0.5rem;
-    }
+  h3 {
+    margin-block: 0;
+    margin-right: 0.5rem;
+  }
 }

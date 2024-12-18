@@ -17,8 +17,15 @@ import { ToastService } from '../../services/toast.service';
 export class PoiListComponent {
   public selectedPOIs: any[] = [];
   public enableStartButton: boolean = false;
+  public stations: any[] = [];
+  public totalCost: number = 0;
+  public pathComputed: boolean = false;
 
-  constructor(private shell: ShellService, private mapbox: MapboxService, public toast: ToastService) {}
+  constructor(
+    private shell: ShellService,
+    private mapbox: MapboxService,
+    public toast: ToastService
+  ) {}
 
   gotoPOI(poi: any) {
     this.shell.gotoPOI(poi);
@@ -42,6 +49,12 @@ export class PoiListComponent {
     });
   }
 
+   ngDoCheck() {
+    this.shell.pathComputed.subscribe((pathComputed) => {
+      this.pathComputed = pathComputed;
+    });
+  }
+
   public clearAll() {
     this.shell.clearGasStations();
     this.shell.clearNavigationPath();
@@ -49,7 +62,8 @@ export class PoiListComponent {
     this.shell.clearPathCoordinates();
     this.shell.clearPOIs();
     this.shell.startSpinningMap();
-    this.shell.setClearAll(); 
+    this.stations = [];
+    this.shell.setClearAll();
   }
 
   public computePath() {
@@ -66,47 +80,68 @@ export class PoiListComponent {
         this.shell.selectedVehicle.value.tankLevel,
         coordinates
       )
-      .subscribe((responseStations) => {
-        this.shell.setGasStations(responseStations.data);
-        if (responseStations) {
-          // Add gas stations coordinates to coorinates and then sort by distance from start
-          coordinates.push(
-            ...responseStations.data.map((station: any) => station.coordinates)
-          );
-
-          coordinates.sort((a: any, b: any) => {
-            return (
-              Math.sqrt(
-                Math.pow(a.latitude - coordinates[0].latitude, 2) +
-                  Math.pow(a.longitude - coordinates[0].longitude, 2)
-              ) -
-              Math.sqrt(
-                Math.pow(b.latitude - coordinates[0].latitude, 2) +
-                  Math.pow(b.longitude - coordinates[0].longitude, 2)
+      .subscribe(
+        (responseStations) => {
+          this.shell.setGasStations(responseStations.data);
+          if (responseStations) {
+            // Add gas stations coordinates to coorinates and then sort by distance from start
+            coordinates.push(
+              ...responseStations.data.map(
+                (station: any) => station.coordinates
               )
             );
-          });
+            this.stations = responseStations.data;
+            coordinates.sort((a: any, b: any) => {
+              return (
+                Math.sqrt(
+                  Math.pow(a.latitude - coordinates[0].latitude, 2) +
+                    Math.pow(a.longitude - coordinates[0].longitude, 2)
+                ) -
+                Math.sqrt(
+                  Math.pow(b.latitude - coordinates[0].latitude, 2) +
+                    Math.pow(b.longitude - coordinates[0].longitude, 2)
+                )
+              );
+            });
 
-          this.mapbox.GetPath(coordinates).subscribe((response) => {
-            let routes = response.routes;
-            let route = routes.sort(
-              (a: any, b: any) => a.distance - b.distance
-            );
-            this.shell.setPathCoordinates(responseStations.data.coordinates);
-            // add route[0].geometry.coordinates to the path coordinates (append to the already existing coordinates)
-            this.shell.setPathCoordinates(route[0].geometry.coordinates);
-          });
+            this.mapbox.GetPath(coordinates).subscribe((response) => {
+              let routes = response.routes;
+              let route = routes.sort(
+                (a: any, b: any) => a.distance - b.distance
+              );
+              this.shell.setPathCoordinates(responseStations.data.coordinates);
+              this.shell.setPathCoordinates(route[0].geometry.coordinates);
+              this.computeTotalCost();
+              this.shell.setPathComputed();
+            });
+          }
+        },
+        (error: any) => {
+          if (error.error.code === 301) {
+            this.toast.showError('Error', 'No vehicle found');
+            return;
+          } else if (error.error.code === 533) {
+            this.mapbox.GetPath(coordinates).subscribe((response) => {
+              let routes = response.routes;
+              let route = routes.sort(
+                (a: any, b: any) => a.distance - b.distance
+              );
+              this.shell.setPathCoordinates(route[0].geometry.coordinates);
+              this.shell.setPathComputed();
+              this.toast.showWarn("Warning", "No gas stations necessary");
+            });
+          }
         }
-      }, (error: any) => {
-        this.mapbox.GetPath(coordinates).subscribe((response) => {
-          let routes = response.routes;
-          let route = routes.sort(
-            (a: any, b: any) => a.distance - b.distance
-          );
-          // add route[0].geometry.coordinates to the path coordinates (append to the already existing coordinates)
-          this.shell.setPathCoordinates(route[0].geometry.coordinates);
-          this.toast.showWarn('Warning', 'No gas stations found');
-        });
-      });
+      );
+  }
+  private computeTotalCost() {
+    this.shell.selectedVehicle.subscribe((vehicle) => {
+      if (vehicle) {
+        console.log(vehicle);
+        this.totalCost = this.stations.reduce((acc, station) => {
+          return acc + station.price * vehicle.litersTank;
+        }, 0);
+      }
+    });
   }
 }

@@ -11,6 +11,7 @@
         [text]="true"
         severity="secondary"
         (onClick)="deleteSelectedPOI(poi)"
+        *ngIf="!pathComputed"
       />
     </div>
   </ol>
@@ -32,4 +33,21 @@
       [disabled]="selectedPOIs.length < 2 || !enableStartButton"
     ></p-button>
   </div>
+</div>
+
+<div class="stations-box">
+  <h3 *ngIf="stations.length > 0">
+    Refueling stops €{{ totalCost | number : "1.2-2" }}
+  </h3>
+  <ol class="selected-poi-list scrollable-list">
+    <div *ngFor="let station of stations" class="selected-poi-box">
+      <div class="poi-wrapper">
+        <li>
+          <h3 (click)="gotoPOI(station.coordinates)">{{ station.name }}</h3>
+          <p>{{ station.address }}</p>
+          <p>€{{ station.price | number : "1.4-4" }}</p>
+        </li>
+      </div>
+    </div>
+  </ol>
 </div>

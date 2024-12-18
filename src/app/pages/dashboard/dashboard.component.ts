@@ -1,16 +1,18 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { SearchBoxComponent } from '../../components/search-box/search-box.component';
+import { CommonModule } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Button } from 'primeng/button';
 import { PoiListComponent } from '../../components/poi-list/poi-list.component';
 import { VehicleSelectorComponent } from '../../components/vehicle-selector/vehicle-selector.component';
-
+import { ShellService } from '../../services/shell.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NavbarComponent, SearchBoxComponent, Dialog, RouterOutlet, PoiListComponent, VehicleSelectorComponent],
+  imports: [NavbarComponent, SearchBoxComponent, CommonModule, Dialog, Button, RouterOutlet, PoiListComponent, VehicleSelectorComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   encapsulation: ViewEncapsulation.None
@@ -19,14 +21,20 @@ export class DashboardComponent {
   public modalVisible = false;
   public modalTitle = '';
   private URLSubscription: Subscription | undefined;
-
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  public pathComputed = false;
+  constructor(private router: Router, private route: ActivatedRoute, private shell: ShellService) {}
 
   ngOnInit() {
     this.handlePathChange();
 
     // If route contains 'login or register' then show auth component
     this.router.events.subscribe(this.handlePathChange.bind(this));
+  }
+
+  ngDoCheck() {
+    this.shell.pathComputed.subscribe((pathComputed) => {
+      this.pathComputed = pathComputed;
+    });
   }
 
   handlePathChange() {
@@ -42,6 +50,10 @@ export class DashboardComponent {
     } else {
       this.modalVisible = false;
     }
+  }
+
+  zoomOnRoute() {
+    this.shell.setZoomOnRoute();
   }
 
   capitalizeFirstLetter(val: string) {

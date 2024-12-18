@@ -22,6 +22,11 @@ export class ShellService {
   public gasStations: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   public clearAll: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public zoomOnRoute: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public pathComputed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor() {}
 
   updateNavigationPath(path: any): void {
@@ -105,8 +110,14 @@ export class ShellService {
   negateClearAll(): void {
     this.clearAll.next(false);
   };
+  
+  setZoomOnRoute(): void {
+    this.zoomOnRoute.next(true);
+  }
 
-
+  setPathComputed(): void {
+    this.pathComputed.next(true);
+  };
 
   subscribeToCustomEvent(event: string, callback: any): void {
     if (!this.events.has(event)) {

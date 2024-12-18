@@ -1,18 +1,34 @@
 <app-navbar></app-navbar>
 
 <div class="glass-panel top-panel">
+  <div class="top-panel-info">
     <h3>Calculate route</h3>
-    <app-search-box></app-search-box>
-    <app-poi-list></app-poi-list>
+    <p-button
+        *ngIf="pathComputed"
+      icon="pi pi-arrow-down-left-and-arrow-up-right-to-center"
+      severity="secondary"
+      (onClick)="zoomOnRoute()"
+    ></p-button>
+  </div>
+  <app-search-box></app-search-box>
+  <app-poi-list></app-poi-list>
 </div>
 
 <div class="glass-panel bottom-panel">
-    <h3>Vehicle and Fuel</h3>
-    <app-vehicle-selector></app-vehicle-selector>
+  <h3>Vehicle and Fuel</h3>
+  <app-vehicle-selector></app-vehicle-selector>
 </div>
 
-
-<p-dialog [(visible)]="modalVisible" [modal]="true" [header]="modalTitle" appendTo="body" [closeOnEscape]="true"
-    [draggable]="false" [resizable]="false" [closable]="true" (onHide)="onModalHide()">
-    <router-outlet></router-outlet>
+<p-dialog
+  [(visible)]="modalVisible"
+  [modal]="true"
+  [header]="modalTitle"
+  appendTo="body"
+  [closeOnEscape]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  (onHide)="onModalHide()"
+>
+  <router-outlet></router-outlet>
 </p-dialog>

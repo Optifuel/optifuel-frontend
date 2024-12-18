@@ -86,17 +86,22 @@ export class GlobeComponent {
     });
 
     this.shell.gotoPOIEvent.subscribe((poi: any) => {
-      this.gotoPOI(poi);
+      try{
+        this.gotoPOI(poi.geometry.coordinates);
+      } catch (error) {
+        this.gotoPOI([poi.longitude, poi.latitude]);
+      }
     });
 
     this.managePOIsInsertion();
     this.addRoute();
     this.resetMap();
+    this.manageZoomOnRoute();
   }
 
   private gotoPOI(poi: any): void {
     this.map.easeTo({
-      center: poi.geometry.coordinates,
+      center: poi,
       zoom: 12,
       duration: 1000,
       offset: this.gotoOffset,
@@ -226,7 +231,7 @@ export class GlobeComponent {
 
           // Goto the last POI
           this.shell.stopSpinningMap();
-          this.gotoPOI(poi);
+          this.gotoPOI(poi.geometry.coordinates);
 
           // Add all markers
           pois.forEach((poi, index) => {
@@ -303,6 +308,12 @@ export class GlobeComponent {
         }
         this.markers.forEach((marker) => marker.remove());
         this.shell.negateClearAll();
+        this.map.easeTo({
+          center: [41.9027835, 12.4963655],
+          zoom: 1.3,
+          duration: 1000,
+          offset: this.gotoOffset,
+        });
       }
     });
   }
@@ -319,6 +330,14 @@ export class GlobeComponent {
         offset: this.gotoOffset,
       });
     }
+  }
+
+  private manageZoomOnRoute(): void {
+    this.shell.zoomOnRoute.subscribe((zoom: boolean) => {
+      if (zoom) {
+        this.zoomOnRoute(this.shell.pathCoordinates.value);
+      }
+    });
   }
 }
 
