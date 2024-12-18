@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { OrderListModule } from 'primeng/orderlist';
 import { Button } from 'primeng/button';
 import { MapboxService } from '../../services/mapbox.service';
+import { ToastService } from '../../services/toast.service';
 @Component({
   selector: 'app-poi-list',
   standalone: true,
@@ -15,8 +16,9 @@ import { MapboxService } from '../../services/mapbox.service';
 })
 export class PoiListComponent {
   public selectedPOIs: any[] = [];
+  public enableStartButton: boolean = false;
 
-  constructor(private shell: ShellService, private mapbox: MapboxService) {}
+  constructor(private shell: ShellService, private mapbox: MapboxService, public toast: ToastService) {}
 
   gotoPOI(poi: any) {
     this.shell.gotoPOI(poi);
@@ -30,6 +32,14 @@ export class PoiListComponent {
     this.shell.POIs.subscribe((pois) => {
       this.selectedPOIs = pois;
     });
+
+    this.shell.selectedVehicle.subscribe((vehicle) => {
+      if (vehicle) {
+        this.enableStartButton = true;
+      } else {
+        this.enableStartButton = false;
+      }
+    });
   }
 
   public clearAll() {
@@ -38,6 +48,8 @@ export class PoiListComponent {
     this.shell.clearSelectedVehicle();
     this.shell.clearPathCoordinates();
     this.shell.clearPOIs();
+    this.shell.startSpinningMap();
+    this.shell.setClearAll(); 
   }
 
   public computePath() {
@@ -55,15 +67,13 @@ export class PoiListComponent {
         coordinates
       )
       .subscribe((responseStations) => {
-        console.log(responseStations.data);
         this.shell.setGasStations(responseStations.data);
-        if (responseStations) {  
-
+        if (responseStations) {
           // Add gas stations coordinates to coorinates and then sort by distance from start
           coordinates.push(
             ...responseStations.data.map((station: any) => station.coordinates)
           );
-          
+
           coordinates.sort((a: any, b: any) => {
             return (
               Math.sqrt(
@@ -86,9 +96,17 @@ export class PoiListComponent {
             // add route[0].geometry.coordinates to the path coordinates (append to the already existing coordinates)
             this.shell.setPathCoordinates(route[0].geometry.coordinates);
           });
-        } else {
-          console.log('No path found');
         }
+      }, (error: any) => {
+        this.mapbox.GetPath(coordinates).subscribe((response) => {
+          let routes = response.routes;
+          let route = routes.sort(
+            (a: any, b: any) => a.distance - b.distance
+          );
+          // add route[0].geometry.coordinates to the path coordinates (append to the already existing coordinates)
+          this.shell.setPathCoordinates(route[0].geometry.coordinates);
+          this.toast.showWarn('Warning', 'No gas stations found');
+        });
       });
   }
 }

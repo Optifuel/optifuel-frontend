@@ -27,8 +27,8 @@ export class VehicleSelectorComponent {
     const email = localStorage.getItem('email');
     this.vehicleService.GetListVehicleByUser(email).subscribe((response) => {
       this.vehicles = response.data;
-      console.log(this.vehicles);
     });
+
   }
 
   public onVehicleChange(event: any) {

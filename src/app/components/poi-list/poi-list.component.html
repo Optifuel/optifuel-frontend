@@ -29,6 +29,7 @@
       label="Start"
       severity="secondary"
       (onClick)="computePath()"
+      [disabled]="selectedPOIs.length < 2 || !enableStartButton"
     ></p-button>
   </div>
 </div>

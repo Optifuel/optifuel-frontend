@@ -21,6 +21,7 @@ export class ShellService {
 
   public gasStations: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
+  public clearAll: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor() {}
 
   updateNavigationPath(path: any): void {
@@ -45,7 +46,7 @@ export class ShellService {
   removePOI(poi: any): void {
     const pois = this.POIs.value;
 
-    const index = pois.findIndex((p: any) => p.id === poi.id);
+    const index = pois.findIndex((p: any) => p.properties.mapbox_id === poi.properties.mapbox_id);
 
     if (index !== -1) {
       pois.splice(index, 1);
@@ -96,6 +97,16 @@ export class ShellService {
   clearGasStations(): void {
     this.gasStations.next(null);
   };
+
+  setClearAll(): void {
+    this.clearAll.next(true);
+  };
+
+  negateClearAll(): void {
+    this.clearAll.next(false);
+  };
+
+
 
   subscribeToCustomEvent(event: string, callback: any): void {
     if (!this.events.has(event)) {

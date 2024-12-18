@@ -25,6 +25,7 @@ export class GlobeComponent {
 
   private token: string = environment.mapbox_token;
   private map!: mapboxgl.Map;
+  private markers: any[] = [];
 
   constructor(private renderer: Renderer2, private shell: ShellService) {}
 
@@ -90,6 +91,7 @@ export class GlobeComponent {
 
     this.managePOIsInsertion();
     this.addRoute();
+    this.resetMap();
   }
 
   private gotoPOI(poi: any): void {
@@ -215,28 +217,29 @@ export class GlobeComponent {
       while (markers.length > 0) {
         markers[0].remove();
       }
+      if (!this.shell.clearAll.value) {
+        if (pois.length === 0) {
+          return;
+        } else if (pois.length !== 0) {
+          // Last POI
+          const poi = pois[pois.length - 1];
 
-      if (pois.length === 0) {
-        return;
+          // Goto the last POI
+          this.shell.stopSpinningMap();
+          this.gotoPOI(poi);
+
+          // Add all markers
+          pois.forEach((poi, index) => {
+            const el = document.createElement('div');
+            el.className = 'custom-marker';
+            el.textContent = (index + 1).toString();
+
+            new mapboxgl.Marker(el)
+              .setLngLat(poi.geometry.coordinates)
+              .addTo(this.map);
+          });
+        }
       }
-
-      // Last POI
-      const poi = pois[pois.length - 1];
-
-      // Goto the last POI
-      this.shell.stopSpinningMap();
-      this.gotoPOI(poi);
-
-      // Add all markers
-      pois.forEach((poi, index) => {
-        const el = document.createElement('div');
-        el.className = 'custom-marker';
-        el.textContent = (index + 1).toString();
-
-        new mapboxgl.Marker(el)
-          .setLngLat(poi.geometry.coordinates)
-          .addTo(this.map);
-      });
     });
   }
 
@@ -277,12 +280,29 @@ export class GlobeComponent {
     this.shell.gasStations.subscribe((gasStation: any) => {
       if (gasStation) {
         gasStation.forEach((station: any) => {
-          console.log(station);
-          const gasStationCoordinates: any = [station.coordinates.longitude, station.coordinates.latitude];
-          new mapboxgl.Marker()
-            .setLngLat(gasStationCoordinates)
-            .addTo(this.map);
+          const gasStationCoordinates: any = [
+            station.coordinates.longitude,
+            station.coordinates.latitude,
+          ];
+          this.markers.push(
+            new mapboxgl.Marker({ color: '#fece2e' })
+              .setLngLat(gasStationCoordinates)
+              .addTo(this.map)
+          );
         });
+      }
+    });
+  }
+
+  private resetMap(): void {
+    this.shell.clearAll.subscribe((clear: boolean) => {
+      if (clear) {
+        if (this.map.getLayer('route')) {
+          this.map.removeLayer('route');
+          this.map.removeSource('route');
+        }
+        this.markers.forEach((marker) => marker.remove());
+        this.shell.negateClearAll();
       }
     });
   }
