@@ -36,16 +36,31 @@
 </div>
 
 <div class="stations-box">
-  <h3 *ngIf="stations.length > 0">
-    Refueling stops €{{ totalCost | number : "1.2-2" }}
-  </h3>
+  <div *ngIf="stations.length > 0" class="trip-stats-box">
+    <h3>Trip stats</h3>
+    <ul>
+      <li>
+        <p>Total cost</p> <strong>€ {{ totalCost | number : "1.2-2" }}</strong>
+      </li>
+      <li>
+        <p>Total distance</p> <strong>{{ routeDistance | number : "1.2-2" }} km</strong>
+      </li>
+      <li>
+        <p>Trip duration</p> <strong>{{ tripDuration | number : "1.2-2" }} h</strong>
+      </li>
+    </ul>
+  </div>
   <ol class="selected-poi-list scrollable-list">
     <div *ngFor="let station of stations" class="selected-poi-box">
       <div class="poi-wrapper">
         <li>
-          <h3 (click)="gotoPOI(station.coordinates)">{{ station.name }}</h3>
+          <h3 (click)="gotoPOI(station.coordinates)">
+            {{ station.name }}
+            <span
+              ><h2>€{{ station.price | number : "1.4-4" }}</h2></span
+            >
+          </h3>
           <p>{{ station.address }}</p>
-          <p>€{{ station.price | number : "1.4-4" }}</p>
         </li>
       </div>
     </div>

@@ -37,7 +37,11 @@
   padding: 0;
   margin: 0;
 
+  max-height: 30vh;
+  overflow: auto;
+
   list-style-position: inside;
+
 }
 
 .poi-wrapper {
@@ -91,9 +95,24 @@
   }
 }
 
-.stations-box {
+.trip-stats-box {
   > h3 {
-    margin-top: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0.2rem;
+
+    > li {
+      width: 100%;
+      height: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
 .scrollable-list {
@@ -102,6 +121,7 @@
   overflow-x: hidden;
   margin: 0; 
 }
-.scrollable-list::-webkit-scrollbar {
-  display: none; 
+
+strong {
+  font-weight: 500;
 }

@@ -20,6 +20,8 @@ export class PoiListComponent {
   public stations: any[] = [];
   public totalCost: number = 0;
   public pathComputed: boolean = false;
+  public routeDistance: number = 0;
+  public tripDuration: number = 0;
 
   constructor(
     private shell: ShellService,
@@ -49,24 +51,34 @@ export class PoiListComponent {
     });
   }
 
-   ngDoCheck() {
+  ngDoCheck() {
     this.shell.pathComputed.subscribe((pathComputed) => {
       this.pathComputed = pathComputed;
     });
   }
 
   public clearAll() {
+    this.shell.clearMap.next(true);
+    this.shell.pathComputed.next(false);
     this.shell.clearGasStations();
     this.shell.clearNavigationPath();
-    this.shell.clearSelectedVehicle();
     this.shell.clearPathCoordinates();
-    this.shell.clearPOIs();
-    this.shell.startSpinningMap();
     this.stations = [];
+    this.shell.clearSelectedVehicle();
+    this.shell.clearPOIs();
     this.shell.setClearAll();
+  }
+  private clearMap() {
+    this.shell.clearGasStations();
+    this.shell.clearNavigationPath();
+    this.shell.clearPathCoordinates();
+    this.stations = [];
   }
 
   public computePath() {
+    this.clearMap();
+    this.shell.clearMap.next(true);
+
     const coordinates = this.selectedPOIs.map((poi) => {
       return {
         latitude: poi.geometry.coordinates[1],
@@ -109,6 +121,12 @@ export class PoiListComponent {
               let route = routes.sort(
                 (a: any, b: any) => a.distance - b.distance
               );
+              this.routeDistance = route[0].distance;
+              // convert the routeDistance to km
+              this.routeDistance = this.routeDistance / 1000;
+              // conevert the trip time to hours
+              this.tripDuration = route[0].duration;
+              this.tripDuration = this.tripDuration / 3600;
               this.shell.setPathCoordinates(responseStations.data.coordinates);
               this.shell.setPathCoordinates(route[0].geometry.coordinates);
               this.computeTotalCost();
@@ -128,7 +146,7 @@ export class PoiListComponent {
               );
               this.shell.setPathCoordinates(route[0].geometry.coordinates);
               this.shell.setPathComputed();
-              this.toast.showWarn("Warning", "No gas stations necessary");
+              this.toast.showWarn('Warning', 'No gas stations necessary');
             });
           }
         }
@@ -137,7 +155,6 @@ export class PoiListComponent {
   private computeTotalCost() {
     this.shell.selectedVehicle.subscribe((vehicle) => {
       if (vehicle) {
-        console.log(vehicle);
         this.totalCost = this.stations.reduce((acc, station) => {
           return acc + station.price * vehicle.litersTank;
         }, 0);

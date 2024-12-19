@@ -10,7 +10,7 @@ app-vehicle-selector {
 
 .glass-panel {
   margin: 0.5rem;
-
+  max-height: calc(100vh - 50px);
   border-radius: 12px !important;
 
   display: flex;
@@ -24,27 +24,6 @@ app-vehicle-selector {
     margin-top: 0;
     margin-bottom: 0.5rem;
     display: flex;
-  }
-  .top-panel-info {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    .p-button {
-      background: transparent;
-      border-color: transparent;
-      margin-bottom: 0.2rem;
-      color: var(--p-button-text-secondary-color);
-    }
-    .p-button:not(:disabled):hover {
-      background: var(--p-button-text-secondary-hover-background);
-      border-color: transparent;
-      color: var(--p-button-text-secondary-color);
-    }
-    .p.button:not(:disabled):active {
-      background: var(--p-button-text-secondary-active-background);
-      border-color: transparent;
-      color: var(--p-button-text-secondary-color);
-    }
   }
 }
 
@@ -61,11 +40,21 @@ app-vehicle-selector {
 
   display: flex;
   flex-direction: column;
-  // align-items: center;
   flex-wrap: wrap;
 
   h3 {
     margin-block: 0;
     margin-right: 0.5rem;
   }
+}
+
+.zoom-btn-box {
+  position: absolute;
+  top: 5rem;
+  right: 1rem;
+  --p-button-text-secondary-color: var(--glass-color);
+  --p-button-text-secondary-color-hover: var(--glass-color);
+  --p-button-text-secondary-color-active: var(--glass-color);
+  --p-button-text-secondary-active-background: var(--glass-background-color);
+  --p-button-text-secondary-hover-background: var(--glass-background-color);
 }

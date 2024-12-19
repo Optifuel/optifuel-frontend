@@ -23,6 +23,8 @@ export class ShellService {
 
   public clearAll: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  public clearMap: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
   public zoomOnRoute: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public pathComputed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);

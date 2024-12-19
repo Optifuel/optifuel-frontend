@@ -1,17 +1,20 @@
 <app-navbar></app-navbar>
 
 <div class="glass-panel top-panel">
-  <div class="top-panel-info">
-    <h3>Calculate route</h3>
-    <p-button
-        *ngIf="pathComputed"
-      icon="pi pi-arrow-down-left-and-arrow-up-right-to-center"
-      severity="secondary"
-      (onClick)="zoomOnRoute()"
-    ></p-button>
-  </div>
-  <app-search-box></app-search-box>
+  <h3>Calculate route</h3>
+  <app-search-box *ngIf="!pathComputed"></app-search-box>
   <app-poi-list></app-poi-list>
+</div>
+
+<div class="zoom-btn-box">
+  <p-button
+    *ngIf="pathComputed"
+    type="button"
+    icon="pi pi-arrow-down-left-and-arrow-up-right-to-center"
+    severity="secondary"
+    (onClick)="zoomOnRoute()"
+    [text]="true"
+  ></p-button>
 </div>
 
 <div class="glass-panel bottom-panel">

@@ -86,7 +86,7 @@ export class GlobeComponent {
     });
 
     this.shell.gotoPOIEvent.subscribe((poi: any) => {
-      try{
+      try {
         this.gotoPOI(poi.geometry.coordinates);
       } catch (error) {
         this.gotoPOI([poi.longitude, poi.latitude]);
@@ -95,8 +95,12 @@ export class GlobeComponent {
 
     this.managePOIsInsertion();
     this.addRoute();
-    this.resetMap();
     this.manageZoomOnRoute();
+    this.shell.clearAll.subscribe((clear: any) => {
+      if (clear) {
+        this.resetMap();
+      }
+    });
   }
 
   private gotoPOI(poi: any): void {
@@ -300,21 +304,17 @@ export class GlobeComponent {
   }
 
   private resetMap(): void {
-    this.shell.clearAll.subscribe((clear: boolean) => {
-      if (clear) {
-        if (this.map.getLayer('route')) {
-          this.map.removeLayer('route');
-          this.map.removeSource('route');
-        }
-        this.markers.forEach((marker) => marker.remove());
-        this.shell.negateClearAll();
-        this.map.easeTo({
-          center: [41.9027835, 12.4963655],
-          zoom: 1.3,
-          duration: 1000,
-          offset: this.gotoOffset,
-        });
-      }
+    if (this.map.getLayer('route')) {
+      this.map.removeLayer('route');
+      this.map.removeSource('route');
+    }
+    this.markers.forEach((marker) => marker.remove());
+    this.shell.negateClearAll();
+    this.map.easeTo({
+      center: [41.9027835, 12.4963655],
+      zoom: 1.3,
+      duration: 1000,
+      offset: this.gotoOffset,
     });
   }
 

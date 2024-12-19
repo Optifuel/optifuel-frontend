@@ -28,7 +28,12 @@ export class VehicleSelectorComponent {
     this.vehicleService.GetListVehicleByUser(email).subscribe((response) => {
       this.vehicles = response.data;
     });
-
+    this.shell.clearAll.subscribe((clear) => {
+      if (clear) {
+        this.selectedVehicle = undefined;
+        this.tank = 100;
+      }
+    });
   }
 
   public onVehicleChange(event: any) {
