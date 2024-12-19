@@ -52,15 +52,15 @@
   </div>
   <ol class="selected-poi-list scrollable-list">
     <div *ngFor="let station of stations" class="selected-poi-box">
-      <div class="poi-wrapper">
+      <div class="gas-wrapper">
         <li>
           <h3 (click)="gotoPOI(station.coordinates)">
             {{ station.name }}
-            <span
-              ><h2>€{{ station.price | number : "1.4-4" }}</h2></span
-            >
           </h3>
-          <p>{{ station.address }}</p>
+          <div>
+            <p>{{ station.address }}</p>
+            <h2>€{{ station.price | number : "1.4-4" }}</h2>
+          </div>
         </li>
       </div>
     </div>
