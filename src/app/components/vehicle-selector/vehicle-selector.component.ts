@@ -24,7 +24,7 @@ export class VehicleSelectorComponent {
   ) {}
 
   ngOnInit() {
-    const email = localStorage.getItem('email');
+    const email = sessionStorage.getItem('email');
     this.vehicleService.GetListVehicleByUser(email).subscribe((response) => {
       this.vehicles = response.data;
     });
@@ -53,7 +53,7 @@ export class VehicleSelectorComponent {
   }
 
   public queryVehicles() {
-    const email = localStorage.getItem('email');
+    const email = sessionStorage.getItem('email');
     this.vehicleService.GetListVehicleByUser(email).subscribe((response) => {
       this.vehicles = response.data;
     });

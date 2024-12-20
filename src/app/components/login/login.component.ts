@@ -1,5 +1,4 @@
-import { Output, EventEmitter } from '@angular/core';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,6 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
 import { ShellService } from '../../services/shell.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +43,8 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private userService: UserService,
     private toastService: ToastService,
-    private shell: ShellService
+    private shell: ShellService,
+    private authService: AuthService
   ) {
     this.form = this.fb.group({
       email: new FormControl('', [
@@ -53,6 +54,7 @@ export class LoginComponent {
       password: new FormControl('', Validators.required),
     });
   }
+
   sendLoginRequest() {
     this.form.reset();
   }
@@ -65,9 +67,8 @@ export class LoginComponent {
     this.userService.ProceedLogin(this.form.value).subscribe(
       (res) => {
         this.userdata = res;
-        sessionStorage.setItem('email', this.userdata.data.email);
-        sessionStorage.setItem('token', this.userdata.data.token);
-        sessionStorage.setItem('user', JSON.stringify(this.userdata.data));
+
+        this.authService.login(this.userdata)
 
         // Redirect to dashbord
         this.router.navigate(['dashboard']);

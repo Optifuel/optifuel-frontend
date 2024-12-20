@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
   ip = environment.apiKey;
 
-  CheckAuthoritation(email: any, token: any): Observable<string> {
+  checkAuthorization(email: any, token: any): Observable<string> {
     const url = `http://${this.ip}/api/User/checkAuthorization?email=${email}&token=${token}`
     return this.http.get<any>(url, {
       headers: {
@@ -21,11 +21,15 @@ export class AuthService {
     }).pipe(map(res => res.code));
   }
 
-  login() {
-    return sessionStorage.getItem('email') != null;
+  login(userdata: any) {
+    sessionStorage.setItem('email', userdata.data.email);
+    sessionStorage.setItem('token', userdata.data.token);
+    sessionStorage.setItem('user', JSON.stringify(userdata.data));
   }
 
   logout() {
-    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
   }
 }

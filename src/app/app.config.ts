@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const Noir = definePreset(Aura, {
   semantic: {
@@ -70,7 +71,10 @@ const Noir = definePreset(Aura, {
 });
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(withInterceptorsFromDi()),
+    provideRouter(routes),
     providePrimeNG({ 
       theme: {
           preset: Noir,

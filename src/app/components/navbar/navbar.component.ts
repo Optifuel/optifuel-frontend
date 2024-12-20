@@ -6,6 +6,7 @@ import { Dialog } from 'primeng/dialog';
 import { Menubar } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { ViewEncapsulation } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,9 +19,10 @@ import { ViewEncapsulation } from '@angular/core';
 export class NavbarComponent {
   items: MenuItem[] | undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {}
 
   onLogout() {
+    this.authService.logout();
     this.router.navigate(['/home']);
   }
 
