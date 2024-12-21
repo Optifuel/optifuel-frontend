@@ -1,1 +1,127 @@
-<p>vehicles works!</p>
+<div>
+  <app-vehicles-table></app-vehicles-table>
+  <!-- </div>
+  <div *ngIf="addVehicle">
+    <form [formGroup]="vehicleForm" (ngSubmit)="saveVehicle()">
+      <div class="flex flex-column justify-content-start">
+        <div *ngIf="!continue">
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="companyName" />
+              <label>Azienda</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="brand" />
+              <label>Marchio</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="model" />
+              <label>Modello</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="licensePlate" />
+              <label>Targa</label>
+            </span>
+          </div>
+          <div class="flex justify-content-between">
+            <div class="card flex mt-4">
+              <button pButton class="buttonVehicles" (click)="continueForm()" label="Continua"></button>
+            </div>
+            <div class="card flex mt-4">
+              <button
+                pButton
+                type="submit"
+                [disabled]="!this.vehicleForm.valid"
+                label="Salva"
+              ></button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="continue">
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <p-dropdown
+                formControlName="fuelType"
+                [options]="fuelType"
+                optionValue="name"
+                optionLabel="name"
+                placeholder="Tipo alimentazione"
+              ></p-dropdown>
+              <label>Tipo di carburante</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="km" />
+              <label>Km</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="weight" />
+              <label>Peso</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="maxLoad" />
+              <label>Peso massimo trasportabile</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="litersTank" />
+              <label>Capienza serbatoio (litri)</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="engineDisplacement" />
+              <label>Cilindrata (cc)</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="urbanConsumption" />
+              <label>Consumo urbano (km/l)</label>
+            </span>
+          </div>
+          <div class="card flex mt-4">
+            <span class="p-float-label input-group">
+              <input pInputText formControlName="extraUrbanConsumption" />
+              <label>Consumo extraurbano (km/l)</label>
+            </span>
+          </div>
+          <div class="flex justify-content-between">
+            <div class="card flex mt-4">
+              <button pButton (click)="continueForm()" label="Indietro"></button>
+            </div>
+            <div class="card flex mt-4">
+              <button
+                pButton
+                type="submit"
+                [disabled]="!this.vehicleForm.valid"
+                label="Salva"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!addVehicle" class="card flex mt-4">
+    <p-button
+      (click)="addVehicle = true"
+      [text]="true"
+      icon="pi pi-plus"
+      severity="secondary"
+      class="p-button-rounded p-button-text"
+      label="Aggiungi"
+    ></p-button> -->
+</div>

@@ -1,0 +1,22 @@
+.veh-table {
+  > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    height: 3rem;
+    > i {
+      font-size: 1rem;
+    }
+    > h3:last-child {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+  > div {
+    > p {
+      padding: 0;
+      font-size: 0.8rem;
+    }
+  }
+}
