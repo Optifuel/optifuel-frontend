@@ -10,7 +10,7 @@ export class UserService {
   apiurl = `http://${this.ip}/api/User/`;
   constructor(private http: HttpClient) {}
 
-  AddUser(data: any) {
+  addUser(data: any) {
     const url = `http://${this.ip}/api/User/AddUser`;
     return this.http.post<any>(url, data, {
       headers: {
@@ -21,7 +21,7 @@ export class UserService {
     });
   }
 
-  ProceedLogin(user: any){
+  proceedLogin(user: any){
     const url = `http://${this.ip}/api/User/GetUserByEmailAndPassword?email=${user.email}&Password=${user.password}`;
     return this.http.get<any>(url, {
       headers: {
@@ -32,7 +32,7 @@ export class UserService {
     });
   }
 
-  EditUser(user: any) {
+  editUser(user: any) {
     const url = `http://${this.ip}/api/User/EditUser`;
     return this.http.post<any>(url, user, {
       headers: {
@@ -42,17 +42,7 @@ export class UserService {
       },
     });
   }
-  
-  CheckAuthoritation(email: any, token: any) {
-    const url = `http://${this.ip}/api/User/checkAuthorization?email=${email}&token=${token}`
-    return this.http.get<any>(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'text/plain',
-        'Access-Control-Allow-Origin': '*',
-      }
-    });
-  }
+
   
   verifyEmail(email: any, code: any) {
     const encodedEmail = encodeURIComponent(email);

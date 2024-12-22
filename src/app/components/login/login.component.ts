@@ -64,7 +64,7 @@ export class LoginComponent {
   }
 
   checkCorrectPassword() {
-    this.userService.ProceedLogin(this.form.value).subscribe(
+    this.userService.proceedLogin(this.form.value).subscribe(
       (res) => {
         this.userdata = res;
 

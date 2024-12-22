@@ -30,6 +30,9 @@ export class ShellService {
 
   public pathComputed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  public showAddVehicleDialog: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+
   constructor() {}
 
   updateNavigationPath(path: any): void {
@@ -121,6 +124,7 @@ export class ShellService {
   setPathComputed(): void {
     this.pathComputed.next(true);
   };
+
 
   subscribeToCustomEvent(event: string, callback: any): void {
     if (!this.events.has(event)) {

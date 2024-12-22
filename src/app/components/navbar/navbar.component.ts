@@ -32,7 +32,7 @@ export class NavbarComponent {
         label: 'OptiFuel',
         // icon: 'pi pi-home'
         command: () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']);
         }
       },
       {

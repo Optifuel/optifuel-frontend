@@ -1,16 +1,255 @@
-<div *ngFor="let vehicle of vehicles" class="veh-table">
-  <div>
-    <i class="pi pi-car"></i>
-    <h3>
-      {{ vehicle.brand }}
-    </h3>
-    <h3>
-      {{ vehicle.model }}
-    </h3>
-  </div>
-  <div>
-    <p>
-      {{ vehicle.licensePlate }}
-    </p>
-  </div>
+<div class="table-container">
+  <p-table
+    [value]="vehicles"
+    [scrollable]="true"
+    scrollHeight="flex"
+    dataKey="licensePlate"
+    editMode="row"
+    [tableStyle]="{ 'min-width': '80rem' }"
+  >
+    <ng-template #header>
+      <tr>
+        <th style="width: 10%">License Plate</th>
+        <th style="width: 10%">Brand</th>
+        <th style="width: 10%">Model</th>
+        <th style="width: 10%">Fuel Type</th>
+        <th style="width: 10%">Engine Displacement</th>
+        <th style="width: 10%">KM</th>
+        <th style="width: 10%">Liters Tank</th>
+        <th style="width: 10%">Weight</th>
+        <th style="width: 10%">Max Load</th>
+        <th style="width: 10%">Urban Cost</th>
+        <th style="width: 10%">Extra-Urban Cost</th>
+        <th style="width: 10%">Business Name</th>
+        <th style="width: 10%">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-vehicle let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="vehicle">
+        <td>
+          {{ vehicle.licensePlate }}
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input pInputText type="text" [(ngModel)]="vehicle.brand" />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.brand }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input pInputText type="text" [(ngModel)]="vehicle.model" />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.model }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <p-select
+                [options]="fuelTypes"
+                appendTo="body"
+                [(ngModel)]="vehicle.fuelType"
+                [style]="{ width: '100%' }"
+              >
+              </p-select>
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.fuelType }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.engineDisplacement"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.engineDisplacement }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.km"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.km }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.litersTank"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.litersTank }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.weight"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.weight }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.maxLoad"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.maxLoad }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.urbanConsumption"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.urbanConsumption }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template #input>
+              <input
+                pInputText
+                type="number"
+                class="no-spin"
+                [(ngModel)]="vehicle.extraUrbanConsumption"
+              />
+            </ng-template>
+            <ng-template #output>
+              {{ vehicle.extraUrbanConsumption }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-tag [value]="vehicle.businessName" severity="secondary"></p-tag>
+        </td>
+        <td>
+          <div class="flex items-center justify-center gap-2">
+            <button
+              *ngIf="!editing"
+              pButton
+              pRipple
+              type="button"
+              pInitEditableRow
+              icon="pi pi-pencil"
+              (click)="onRowEditInit(vehicle)"
+              text
+              rounded
+              severity="secondary"
+            ></button>
+            <button
+              *ngIf="!editing"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              severity="danger"
+              (click)="deleteVehicle(vehicle)"
+              text
+              rounded
+            ></button>
+            <button
+              *ngIf="editing"
+              pButton
+              pRipple
+              type="button"
+              pSaveEditableRow
+              icon="pi pi-check"
+              (click)="onRowEditSave(vehicle)"
+              text
+              rounded
+              severity="secondary"
+            ></button>
+            <button
+              *ngIf="editing"
+              pButton
+              pRipple
+              type="button"
+              pCancelEditableRow
+              icon="pi pi-times"
+              (click)="onRowEditCancel(vehicle, ri)"
+              text
+              rounded
+              severity="secondary"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- Dialog for Adding Vehicle -->
+  <p-dialog
+    [(visible)]="addVehicleDialogVisible"
+    header="Add Vehicle"
+    [style]="{ width: 'auto' }"
+    (onHide)="closeAddVehicleDialog()"
+    [closable]="true"
+    [draggable]="false"
+    modal
+    appendTo="body"
+  >
+    <app-add-vehicle></app-add-vehicle>
+  </p-dialog>
+</div>
+<div class="add-vehicle">
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-plus"
+    (click)="showAddVehicleDialog()"
+    severity="secondary"
+    text="true"
+    label="Add Vehicle"
+  ></button>
 </div>

@@ -8,6 +8,8 @@ import { AuthComponent } from '../../components/auth/auth.component';
 import { ToastService } from '../../services/toast.service';
 import { Subscription } from 'rxjs';
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -22,7 +24,7 @@ export class HomeComponent {
   private URLSubscription: Subscription | undefined;
   public selectedPOIs: any[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private toastService: ToastService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private toastService: ToastService, private authService: AuthService) {}
 
   ngOnInit() {
     this.handlePathChange();
@@ -46,7 +48,16 @@ export class HomeComponent {
   }
 
   goToAuth() {
-    this.router.navigate(['login'], { relativeTo: this.route });
+    const token = sessionStorage.getItem('token');
+    const email = sessionStorage.getItem('email');
+
+    if (this.authService.checkAuthorization(email, token)) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      sessionStorage.clear();
+      this.router.navigate(['login'], { relativeTo: this.route });
+    }
+
   }
   
   backToHome() {

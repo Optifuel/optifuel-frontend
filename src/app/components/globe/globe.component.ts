@@ -101,6 +101,11 @@ export class GlobeComponent {
         this.resetMap();
       }
     });
+    this.shell.clearMap.subscribe((clear:any)=>{
+      if (clear){
+        this.resetMap();
+      }
+    })
   }
 
   private gotoPOI(poi: any): void {

@@ -93,30 +93,11 @@ export class PoiListComponent {
         coordinates
       )
       .subscribe(
-        (responseStations) => {
-          this.shell.setGasStations(responseStations.data);
-          if (responseStations) {
-            // Add gas stations coordinates to coorinates and then sort by distance from start
-            coordinates.push(
-              ...responseStations.data.map(
-                (station: any) => station.coordinates
-              )
-            );
-            this.stations = responseStations.data;
-            coordinates.sort((a: any, b: any) => {
-              return (
-                Math.sqrt(
-                  Math.pow(a.latitude - coordinates[0].latitude, 2) +
-                    Math.pow(a.longitude - coordinates[0].longitude, 2)
-                ) -
-                Math.sqrt(
-                  Math.pow(b.latitude - coordinates[0].latitude, 2) +
-                    Math.pow(b.longitude - coordinates[0].longitude, 2)
-                )
-              );
-            });
-
-            this.mapbox.GetPath(coordinates).subscribe((response) => {
+        (response_station) => {
+          if (response_station) {
+            this.shell.setGasStations(response_station.data.station);
+            this.stations = response_station.data.station;
+            this.mapbox.GetPath(response_station.data.coordinates).subscribe((response) => {
               let routes = response.routes;
               let route = routes.sort(
                 (a: any, b: any) => a.distance - b.distance
@@ -127,7 +108,6 @@ export class PoiListComponent {
               // conevert the trip time to hours
               this.tripDuration = route[0].duration;
               this.tripDuration = this.tripDuration / 3600;
-              this.shell.setPathCoordinates(responseStations.data.coordinates);
               this.shell.setPathCoordinates(route[0].geometry.coordinates);
               this.computeTotalCost();
               this.shell.setPathComputed();

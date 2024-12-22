@@ -4,6 +4,7 @@ import { VehiclesTableComponent } from '../../components/vehicles-table/vehicles
 
 import { VehicleService } from '../../services/vehicle.service';
 import { UserService } from '../../services/user.service';
+import { ShellService } from '../../services/shell.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -13,7 +14,17 @@ import { UserService } from '../../services/user.service';
   styleUrl: './vehicles.component.scss'
 })
 export class VehiclesComponent {
+
+  constructor(
+    private vehicleService: VehicleService,
+    private userService: UserService,
+    private shell: ShellService
+  ) {}
+
+  ngOnInit() {
+  }
   
+
 
 
 }

@@ -141,7 +141,7 @@ export class RegisterComponent {
       },
     };
 
-    this.userService.AddUser(toSend).subscribe((data: any) => {
+    this.userService.addUser(toSend).subscribe((data: any) => {
       console.log(data);
       sessionStorage.setItem('email', this.form.value.email);
       if (data.message === 'Success') {
