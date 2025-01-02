@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DialogService } from '../../services/dialog.service';
-import { Dialog } from 'primeng/dialog';
 import { Menubar } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-
+import { ShellService } from '../../services/shell.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -19,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent {
   items: MenuItem[] | undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private shell: ShellService) {}
 
   onLogout() {
     this.authService.logout();
@@ -50,13 +47,6 @@ export class NavbarComponent {
         },
       },
       {
-        label: 'Project',
-        icon: 'pi pi-github',
-        command: () => {
-          this.router.navigate(['project'], { relativeTo: this.route });
-        },
-      },
-      {
         label: 'Credits',
         icon: 'pi pi-envelope',
         command: () => {
@@ -78,6 +68,8 @@ export class NavbarComponent {
         icon: 'pi pi-sign-out',
         command: () => {
           this.onLogout();
+          this.shell.clearAll.next(true);
+          this.shell.POIs.next([]);
         },
       },
     ];

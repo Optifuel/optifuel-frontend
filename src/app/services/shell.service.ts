@@ -32,6 +32,7 @@ export class ShellService {
 
   public showAddVehicleDialog: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  public changePwdDialog: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {}
 

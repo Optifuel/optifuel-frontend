@@ -1,1 +1,166 @@
-<p>account works!</p>
+<div class="form-wrapper" *ngIf="editMode" (ngSubmit)="editUser()">
+  <form [formGroup]="form" method="post">
+    <div class="card">
+      <p-floatlabel>
+        <input
+          pInputText
+          id="username"
+          type="text"
+          autocomplete="off"
+          formControlName="name"
+        />
+        <label for="name">Name</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <input
+          pInputText
+          id="lastname"
+          type="text"
+          autocomplete="off"
+          formControlName="surname"
+          required
+          *ngIf="editMode"
+        />
+        <label for="lastname">Lastname</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <p-calendar
+          formControlName="dateBirth"
+          appendTo="body"
+          dateFormat="dd/mm/yy"
+          [placeholder]="user?.dateBirth"
+        ></p-calendar>
+        <label for="dateBirth">Date of birth</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <p-select
+          [style]="{ width: '-webkit-fill-available !important' }"
+          id="drivingLicense"
+          formControlName="drivingLicense"
+          [options]="driveLicences"
+          optionValue="name"
+          optionLabel="name"
+          styleClass="dropdown"
+        />
+        <label for="drivingLicense">License Type</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <p-calendar
+          formControlName="deadLine"
+          appendTo="body"
+          dateFormat="dd/mm/yy"
+          [placeholder]="user?.drivingLicense.deadLine"
+        ></p-calendar>
+        <label for="date">Driving license expiration</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <input
+          pInputText
+          id="businessName"
+          type="text"
+          autocomplete="off"
+          formControlName="businessName"
+          [value]="user?.businessName"
+          required
+        />
+        <label for="businessName">Business Name</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <input
+          pInputText
+          id="password"
+          type="password"
+          autocomplete="off"
+          formControlName="old_password"
+        />
+        <label for="password">Old Password</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <input
+          pInputText
+          id="password"
+          type="password"
+          autocomplete="off"
+          formControlName="new_password"
+        />
+        <label for="repeatPassword">New Password</label>
+      </p-floatlabel>
+    </div>
+  </form>
+</div>
+<div *ngIf="!editMode">
+  <div class="default-info">
+    <p>Name</p>
+    <h2>{{ user?.name }}</h2>
+  </div>
+  <div class="default-info">
+    <p>Lastname</p>
+    <h2>{{ user?.surname }}</h2>
+  </div>
+  <div class="default-info">
+    <p>Date of birth</p>
+    <h2>{{ user?.dateBirth }}</h2>
+  </div>
+  <div class="default-info">
+    <p>License Type</p>
+    <h2>{{ user?.drivingLicense.type }}</h2>
+  </div>
+  <div class="default-info">
+    <p>Driving license expiration</p>
+    <h2>{{ user?.drivingLicense.deadLine }}</h2>
+  </div>
+  <div class="default-info">
+    <p>Business Name</p>
+    <h2>{{ user?.businessName }}</h2>
+  </div>
+</div>
+<div class="edit-btns">
+  <p-button
+    *ngIf="!editMode"
+    icon="pi pi-pencil"
+    severity="secondary"
+    [text]="true"
+    class="edit-btn"
+    (onClick)="editMode = true"
+  ></p-button>
+  <p-button
+    *ngIf="editMode"
+    icon="pi pi-times"
+    severity="secondary"
+    [text]="true"
+    class="edit-btn"
+    (onClick)="editMode = false"
+  ></p-button>
+  <p-button
+    *ngIf="editMode"
+    severity="primary"
+    class="edit-btn"
+    label="Save"
+    (onClick)="editUser()"
+  ></p-button>
+</div>
+<p-dialog [visible]="this.confirmAccountDialog" [modal]="true" header="Confirm email" appendTo="body" [closeOnEscape]="false"
+    [draggable]="false" [resizable]="false" [closable]="false">
+    <app-confirm-account></app-confirm-account>
+</p-dialog>

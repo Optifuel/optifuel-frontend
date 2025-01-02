@@ -4,7 +4,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { VehiclesComponent } from './pages/vehicles/vehicles.component';
 import { GuideComponent } from './pages/guide/guide.component';
-import { ProjectComponent } from './pages/project/project.component';
 import { CreditsComponent } from './pages/credits/credits.component';
 import { AccountComponent } from './pages/account/account.component';
 
@@ -39,10 +38,6 @@ export const routes: Routes = [
             {
                 path: 'guide',
                 component: GuideComponent
-            },
-            {
-                path: 'project',
-                component: ProjectComponent
             },
             {
                 path: 'credits',
