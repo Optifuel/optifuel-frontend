@@ -28,6 +28,10 @@
     margin-bottom: 0;
     text-transform: uppercase;
   }
+
+  &:first-child > p {
+    margin-top: 0;
+  }
 }
 .edit-btns {
   display: flex;
@@ -36,5 +40,5 @@
   justify-content: space-between;
 }
 .card {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }

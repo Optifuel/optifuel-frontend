@@ -47,7 +47,7 @@ export class AccountComponent {
   public user: any;
   public driveLicences: driveLicences[] | undefined;
   public form: FormGroup;
-  public editMode: boolean = true;
+  public editMode: boolean = false;
   public confirmAccountDialog: boolean = false;
 
   constructor(
