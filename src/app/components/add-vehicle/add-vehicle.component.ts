@@ -77,7 +77,6 @@ export class AddVehicleComponent {
     this.vehicleForm.value.email = sessionStorage.getItem('email');
     this.vehicleService.AddVehicle(this.vehicleForm.value).subscribe(
       (data) => {
-        console.log(this.vehicleForm.value);
         this.toastService.showSuccess('Success', 'Vehicle added successfully');
         this.vehicleForm.reset();
         this.shell.showAddVehicleDialog.next(false);
