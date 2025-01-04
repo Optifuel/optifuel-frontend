@@ -46,7 +46,13 @@ export class VehiclesTableComponent {
     model: '',
     fuelType: '',
     engineDisplacement: null,
-    // Add other fields as necessary
+    businessName: '',
+    km: null,
+    litersTank: null,
+    weight: null,
+    maxLoad: null,
+    urbanConsumption: null,
+    extraUrbanConsumption: null,
   };
 
   constructor(
@@ -115,12 +121,14 @@ export class VehiclesTableComponent {
       model: '',
       fuelType: '',
       engineDisplacement: null,
-      // Initialize other fields
+      businessName: '',
+      km: null,
+      litersTank: null,
+      weight: null,
+      maxLoad: null,
+      urbanConsumption: null,
+      extraUrbanConsumption: null,
     };
-  }
-
-  addVehicle() {
-    // ADD VEHICLE
   }
 
   isNewVehicleValid() {
