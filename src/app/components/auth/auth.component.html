@@ -1,0 +1,8 @@
+<div class="auth-wrapper">
+    <router-outlet></router-outlet>
+</div>
+
+<p-dialog [visible]="this.confirmAccountDialog" [modal]="true" header="Confirm email" appendTo="body" [closeOnEscape]="false"
+    [draggable]="false" [resizable]="false" [closable]="false">
+    <app-confirm-account></app-confirm-account>
+</p-dialog>

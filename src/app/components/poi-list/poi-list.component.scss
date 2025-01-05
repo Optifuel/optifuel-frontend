@@ -1,0 +1,150 @@
+.selected-poi-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  width: 100%;
+  gap: 0.5rem;
+
+  padding: 1rem;
+
+  h3 {
+    font-size: medium;
+    text-align: start;
+    margin: 0;
+    height: fit-content;
+    cursor: pointer;
+  }
+
+  p {
+    font-size: small;
+    text-align: start;
+    margin: 0;
+    height: fit-content;
+  }
+}
+
+.selected-poi-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  width: 100%;
+  gap: 0.5rem;
+
+  padding: 0;
+  margin: 0;
+
+  max-height: 30vh;
+  overflow: auto;
+
+  list-style-position: inside;
+}
+
+.poi-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: 100%;
+  padding-left: 0.1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--glass-border-color);
+
+  &:last-child {
+    border-bottom: 0;
+    padding-top: 0;
+  }
+}
+
+.selected-poi-button {
+  margin-top: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: 100%;
+
+  > p-button:last-child {
+    flex-grow: 1;
+    display: flex;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  > p-button:first-child {
+    display: flex;
+    height: 100%;
+
+    width: 3rem;
+
+    button {
+      height: 43px;
+      width: 100%;
+    }
+  }
+}
+
+.trip-stats-box {
+  > h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  ul {
+    margin-top: 0.5rem;
+    list-style: none;
+    padding-left: 0.2rem;
+
+    > li {
+      width: 100%;
+      height: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+.scrollable-list {
+  max-height: 200px;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  margin: 0; 
+}
+
+strong {
+  font-weight: 500;
+}
+
+.gas-wrapper {
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    h2 {
+      margin: 0;
+    }
+  }
+
+  width: 100%;
+  padding-left: 0.1rem;
+  border-bottom: 1px solid var(--glass-border-color);
+
+  &:last-child {
+    border-bottom: 0;
+    padding-top: 0;
+  }
+}

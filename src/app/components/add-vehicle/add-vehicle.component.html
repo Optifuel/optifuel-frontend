@@ -1,0 +1,146 @@
+<form [formGroup]="vehicleForm" (ngSubmit)="onAddVehicle()">
+  <div class="form-group">
+    <p-floatlabel>
+      <input
+        pInputText
+        id="businessName"
+        type="text"
+        formControlName="businessName"
+        required
+      />
+      <label for="businessName">Business Name</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="licensePlate"
+        type="text"
+        formControlName="licensePlate"
+        required
+      />
+      <label for="licensePlate">License Plate</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="brand"
+        type="text"
+        formControlName="brand"
+        required
+      />
+      <label for="brand">Brand</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="model"
+        type="text"
+        formControlName="model"
+        required
+      />
+      <label for="model">Model</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <p-select
+        id="fuelType"
+        [options]="fuelTypes"
+        formControlName="fuelType"
+        [style]="{ width: '100%' }"
+      ></p-select>
+      <label for="fuelType">Fuel Type</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input pInputText id="km" type="number" formControlName="km" required />
+      <label for="km">Kilometers</label>
+    </p-floatlabel>
+
+    <p-button
+      label="Reset"
+      severity="secondary"
+      type="button"
+      text="true"
+      (click)="closeAddVehicleDialog()"
+    ></p-button>
+  </div>
+
+  <div class="form-group">
+    <p-floatlabel>
+      <input
+        pInputText
+        id="litersTank"
+        type="number"
+        formControlName="litersTank"
+        required
+      />
+      <label for="litersTank">Liters Tank</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="engineDisplacement"
+        type="number"
+        formControlName="engineDisplacement"
+        required
+      />
+      <label for="engineDisplacement">Engine Displacement (cc)</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="weight"
+        type="number"
+        formControlName="weight"
+        required
+      />
+      <label for="weight">Weight (kg)</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="maxLoad"
+        type="number"
+        formControlName="maxLoad"
+        required
+      />
+      <label for="maxLoad">Max Load (kg)</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="urbanCost"
+        type="number"
+        formControlName="urbanConsumption"
+        required
+      />
+      <label for="urbanCost">Urban Consumption (km/l)</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+      <input
+        pInputText
+        id="extraUrbanCost"
+        type="number"
+        formControlName="extraUrbanConsumption"
+        required
+      />
+      <label for="extraUrbanCost">Extra-Urban Consumption (km/l)</label>
+    </p-floatlabel>
+
+    <p-button
+      id="addButton"
+      label="Add Vehicle"
+      severity="secondary"
+      type="submit"
+      [disabled]="!vehicleForm.valid"
+    ></p-button>
+  </div>
+</form>

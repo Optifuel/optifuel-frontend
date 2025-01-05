@@ -1,0 +1,68 @@
+<div *ngIf="selectedPOIs.length !== 0" class="selected-poi-box">
+  <ol class="selected-poi-list">
+    <div class="poi-wrapper" *ngFor="let poi of selectedPOIs">
+      <li>
+        <h3 (click)="gotoPOI(poi)">{{ poi.properties.name }}</h3>
+        <p>{{ poi.properties.full_address }}</p>
+      </li>
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="deleteSelectedPOI(poi)"
+        *ngIf="!pathComputed"
+      />
+    </div>
+  </ol>
+  <div class="selected-poi-button">
+    <p-button
+      type="button"
+      icon="pi pi-trash"
+      severity="secondary"
+      [text]="true"
+      (onClick)="clearAll()"
+    ></p-button>
+
+    <p-button
+      type="button"
+      icon="pi pi-compass"
+      label="Start"
+      severity="secondary"
+      (onClick)="computePath()"
+      [disabled]="selectedPOIs.length < 2 || !enableStartButton"
+    ></p-button>
+  </div>
+</div>
+
+<div class="stations-box">
+  <div *ngIf="stations.length > 0" class="trip-stats-box">
+    <h3>Trip stats</h3>
+    <ul>
+      <li>
+        <p>Total cost</p> <strong>€ {{ totalCost | number : "1.2-2" }}</strong>
+      </li>
+      <li>
+        <p>Total distance</p> <strong>{{ routeDistance | number : "1.2-2" }} km</strong>
+      </li>
+      <li>
+        <p>Trip duration</p> <strong>{{ tripDuration | number : "1.2-2" }} h</strong>
+      </li>
+    </ul>
+  </div>
+  <ol class="selected-poi-list scrollable-list">
+    <div *ngFor="let station of stations" class="selected-poi-box">
+      <div class="gas-wrapper">
+        <li>
+          <h3 (click)="gotoPOI(station.coordinates)">
+            {{ station.name }}
+          </h3>
+          <div>
+            <p>{{ station.address }}</p>
+            <h2>€{{ station.price | number : "1.4-4" }}</h2>
+          </div>
+        </li>
+      </div>
+    </div>
+  </ol>
+</div>

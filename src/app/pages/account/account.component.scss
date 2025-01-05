@@ -1,0 +1,44 @@
+.form-wrapper {
+  overflow: scroll;
+  > form {
+    min-width: 20rem;
+    max-height: 20rem;
+    > .card:first-child {
+      margin-top: 1.5rem;
+    }
+    .p-floatlabel:has(input.p-filled) label {
+      font-size: small;
+    }
+  }
+}
+
+.default-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 20rem;
+  max-height: fit-content;
+
+  > p {
+    font-size: small;
+    margin-bottom: 0;
+  }
+  > h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+
+  &:first-child > p {
+    margin-top: 0;
+  }
+}
+.edit-btns {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: space-between;
+}
+.card {
+  margin-bottom: 2rem;
+}

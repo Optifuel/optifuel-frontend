@@ -1,0 +1,87 @@
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    height: 100%;
+
+    > form {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+
+        overflow: scroll;
+
+        .card {
+            display: flex;
+            justify-content: space-between;
+            margin-block: 0.9rem;
+            width: 80%;
+
+            p-button {
+                width: 100%;
+            }
+        }
+    }
+
+    .p-inputtext, .p-select, .p-select-overlay, .p-datepicker-panel {
+        width: 100%;
+    }
+    
+}
+
+.login-link {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+
+    a {
+        font-weight: 500;
+        margin-left: 5px;
+        color: white;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: rgb(240, 240, 240);
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: white;
+    }
+}
+
+h2 {
+    color: var(--glass-color);
+}
+
+.p-floatlabel {
+    width: 100%;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .card {
+        width: 100%;
+    }
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

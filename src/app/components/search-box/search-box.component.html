@@ -1,0 +1,15 @@
+<p-autocomplete
+  [(ngModel)]="value"
+  [suggestions]="items"
+  placeholder="Search for a place"
+  (completeMethod)="search($event)"
+  (onSelect)="addPOItoTrip($event)"
+  optionLabel="name"
+>
+  <ng-template let-item pTemplate="item">
+    <div class="search-element">
+      <h3>{{ item.name }}</h3>
+      <p>{{ item.full_address }}</p>
+    </div>
+  </ng-template>
+</p-autocomplete>

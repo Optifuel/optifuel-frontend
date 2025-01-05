@@ -1,0 +1,15 @@
+<main>
+
+    <div class="title-container">
+        <h1>OptiFuel</h1>
+        <p>Optimize your fuel consumption with ease</p>
+    </div>
+
+    <app-auth class="auth-modal" *ngIf="showAuth"></app-auth>
+
+    <div class="button-container">
+        <p-button *ngIf="!showAuth" severity="secondary" label="Get Started" size="large" (onClick)="goToAuth()"></p-button>
+        <p-button *ngIf="showAuth" severity="primary" label="Back" size="large" (onClick)="backToHome()"></p-button>
+    </div>
+
+</main>

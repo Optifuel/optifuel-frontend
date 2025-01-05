@@ -1,0 +1,32 @@
+<!-- <p-toast preventOpenDuplicates="true" appendTo="body"></p-toast> -->
+<div class="form-wrapper">
+
+  <form [formGroup]="form" method="post" (ngSubmit)="sendLoginRequest()">
+
+    <h2>Get Access</h2>
+
+    <div class="card">
+      <p-floatlabel>
+        <input pInputText id="email" type="email" autocomplete="off" formControlName="email" required />
+        <label for="email">Email</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-floatlabel>
+        <input pInputText id="password" type="password" autocomplete="off" formControlName="password" required />
+        <label for="password">Password</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="card">
+      <p-button [style]="{'width': '100%'}" label="Login" severity="secondary" type="button" size="small" (click)="checkCorrectPassword()" [disabled]="!form.valid"/>
+    </div>
+    
+    <div class="signup-link">
+      <p>Don't have an account?</p>
+      <a (click)="goToRegister()">Register</a>
+    </div>
+    
+  </form>
+</div>

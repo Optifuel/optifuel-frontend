@@ -1,0 +1,196 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "primeicons/primeicons.css";
+
+html {
+    font-family: "Poppins", Inter var, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    user-select: none;
+    cursor: default;
+}
+
+a:hover{
+    cursor: pointer;
+}
+
+.glass-light {
+    --glass-background-color: rgba(from var(--p-gray-100) r g b / 0.6);
+    --glass-color: var(--p-gray-950);
+    --glass-icon-color: var(--p-gray-900);
+    --glass-border-color: rgba(from var(--p-gray-600) r g b / 0.2);
+    --glass-box-shadow: 0 0 40px rgba(60, 60, 60, 0.1);
+    --glass-blur-amount: 20px;
+    --glass-panel-border-radius: 18px;
+    --glass-border-radius: 8px;
+}
+
+.glass {
+    --glass-background-color: rgba(from var(--p-gray-500) r g b / 0.6);
+    --glass-color: var(--p-gray-100);
+    --glass-icon-color: var(--p-gray-200);
+    --glass-border-color: rgba(from var(--p-gray-50) r g b / 0.2);
+    --glass-box-shadow: 0 0 40px rgba(60, 60, 60, 0.1);
+    --glass-blur-amount: 20px;
+    --glass-panel-border-radius: 18px;
+    --glass-border-radius: 8px;
+
+    --p-floatlabel-color: var(--glass-color);
+    --p-floatlabel-focus-color: var(--glass-color);
+    --p-floatlabel-active-color: var(--glass-color);
+
+    --p-floatlabel-color: var(--glass-color);
+    --p-floatlabel-focus-color: var(--glass-color);
+    --p-floatlabel-active-color: var(--glass-color);
+    
+    --p-select-placeholder-color: var(--glass-color);
+    --p-select-dropdown-color: var(--glass-color);
+    --p-select-overlay-background: var(--glass-background-color);
+    --p-select-option-color: var(--glass-color);
+    --p-select-option-focus-color: var(--glass-color);
+    --p-select-option-hover-color: var(--glass-color);
+    --p-select-option-focus-background: var(--glass-background-color);
+    --p-select-color: var(--glass-color);
+    --p-select-option-selected-focus-background: var(--glass-border-color);
+    --p-select-option-selected-background:  var(--glass-background-color);
+
+    --p-autocomplete-option-color: var(--p-gray-100) !important;
+    --p-autocomplete-option-focus-background: rgba(from var(--p-gray-200) r g b / 0.2) !important;
+    --p-autocomplete-option-focus-color: var(--p-gray-100) !important;
+    --p-autocomplete-option-active-background: rgba(from var(--p-gray-200) r g b / 0.2) !important;
+    --p-autocomplete-option-active-color: var(--p-gray-100) !important;
+
+    --p-datatable-header-cell-background: var(--glass-background-color);
+    --p-datatable-header-cell-border-color: var(--glass-border-color);
+    --p-datatable-header-cell-color: var(--glass-color);
+
+    --p-datatable-row-background: var(--glass-background-color);
+    --p-datatable-row-color: var(--glass-color);
+    --p-datatable-body-cell-border-color: var(--glass-border-color);
+
+    .p-dialog, .p-autocomplete-overlay, .auth-modal, .glass-panel {
+        width: auto;
+
+        color: var(--glass-color) !important;
+        background-color: var(--glass-background-color) !important;
+        
+        box-shadow: inset var(--glass-box-shadow) !important;
+        
+        border-radius: var(--glass-panel-border-radius);
+        border: 1px solid var(--glass-border-color) !important;
+
+        backdrop-filter: blur(var(--glass-blur-amount)) !important;
+
+        --p-button-text-secondary-color: var(--glass-color);
+        --p-button-text-secondary-color-hover: var(--glass-color);
+        --p-button-text-secondary-color-active: var(--glass-color);
+        --p-button-text-secondary-active-background: var(--glass-background-color);
+        --p-button-text-secondary-hover-background: var(--glass-background-color);
+    }
+
+    .p-inputtext, .p-select, .p-select-overlay, .p-datepicker-panel, .selected-poi-box {
+        width: 100%;
+
+        color: var(--glass-color) !important;
+        background-color: gba(from var(--glass-background-color) r g b / 0.1);
+        
+        box-shadow: inset var(--glass-box-shadow) !important;
+        
+        border-radius: var(--glass-border-radius) !important;
+        border: 1px solid var(--glass-border-color) !important;
+      
+        &:enabled:hover {
+            border-color: var(--glass-border-color) !important;
+        }
+      
+        &:enabled:focus {
+            border-color: var(--glass-border-color) !important;
+        }
+
+        &::placeholder {
+            color: rgba(from var(--glass-color) r g b / 0.5) !important;
+        }
+    }
+
+    .p-select-overlay {
+        background-color: var(--glass-background-color);
+    }
+
+    .p-select-label {
+        color: var(--glass-color);
+        font-weight: 500;
+        text-align: start;
+    }
+
+    .p-datepicker-header {
+        background-color: transparent !important;
+        border-color: transparent !important;
+    }
+    
+    .p-select-overlay, .p-datepicker-panel {
+        width: auto !important;
+        z-index: 1000;
+        backdrop-filter: blur(var(--glass-blur-amount)) !important;
+    }
+    
+    .dropdown {
+        width: -webkit-fill-available;
+        --p-floatlabel-color: transparent;
+    }
+
+    .p-menubar {
+        color: var(--glass-color) !important;
+        background-color: var(--glass-background-color) !important;
+        
+        box-shadow: inset var(--glass-box-shadow) !important;
+        
+        border-radius: var(--glass-border-radius) !important;
+        border: 1px solid var(--glass-border-color) !important;
+
+        backdrop-filter: blur(var(--glass-blur-amount)) !important;
+        
+        &:enabled:hover {
+            border-color: var(--glass-border-color) !important;
+        }
+      
+        &:enabled:focus {
+            border-color: var(--glass-border-color) !important;
+        }
+    
+        --p-menubar-item-color: var(--glass-color) !important;
+        --p-menubar-item-focus-color: var(--glass-color) !important;
+        --p-menubar-item-focus-background: var(--glass-background-color) !important;
+        --p-menubar-item-icon-color: var(--glass-icon-color) !important;
+        --p-menubar-item-icon-focus-color: var(--glass-icon-color) !important;
+    }
+    
+    .p-datepicker-panel {
+        --p-datepicker-date-hover-background: var(--glass-border-color);
+
+        --p-datepicker-date-selected-background: var(--glass-background-color);
+        --p-datepicker-today-background: var(--glass-border-color);
+
+        --p-button-text-primary-hover-background: var(--glass-background-color);
+        --p-button-text-primary-active-background: var(--glass-background-color);
+    
+        --p-datepicker-select-month-hover-background: var(--glass-border-color);
+        --p-datepicker-select-year-hover-background: var(--glass-border-color);
+    
+        --p-button-primary-active-border-color: var(--glass-border-color);
+        --p-button-text-primary-hover-background: var(--glass-border-color);
+
+        background-color: var(--glass-background-color) !important;
+    
+        * {
+            color: var(--glass-color) !important;
+        }
+    }
+
+}
