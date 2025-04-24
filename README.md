@@ -15,7 +15,7 @@ The frontend is organized into several key sections to provide a fluid user expe
 * **Purpose:** Serves as the initial entry point to the application.
 * **Functionality:** Presents the application and offers users the choice to either register as a new user or log in with existing credentials. Designed for quick access to the system.
 
-    ![landing page](landing.png)
+    ![landing page](docs/landing.png)
 
 ### 2. Login / Registration
 
