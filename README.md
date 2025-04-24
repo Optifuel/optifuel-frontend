@@ -1,27 +1,49 @@
-# OptifuelFrontend
+# OptiFuel Frontend Documentation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+This documentation describes the structure and components of the OptiFuel frontend application, developed using Angular.
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The frontend is a Single Page Application (SPA) built with Angular. It provides the user interface for interacting with the OptiFuel route optimization system. It communicates with the .NET backend via REST APIs.
 
-## Code scaffolding
+## Main Sections
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The frontend is organized into several key sections to provide a fluid user experience:
 
-## Build
+### 1. Landing Page
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* **Purpose:** Serves as the initial entry point to the application.
+* **Functionality:** Presents the application and offers users the choice to either register as a new user or log in with existing credentials. Designed for quick access to the system.
 
-## Running unit tests
+    ![landing page](landing.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 2. Login / Registration
 
-## Running end-to-end tests
+* **Purpose:** Handles user authentication and account creation.
+* **Functionality:**
+    * Provides a login form for existing users.
+    * Provides a registration form for new users.
+    * Ensures a secure and user-friendly credential management flow.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    ![login page](docs/login.png)
+    ![register page](docs/register.png)
 
-## Further help
+### 3. Dashboard
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* **Purpose:** The main user interface after login, where core functionalities are accessed.
+* **Functionality:**
+    * Displays points of interest along the user's calculated itinerary.
+    * Shows the system-calculated optimal route, including suggested fuel stops based on convenience/cost.
+    * Features a central map display (implied by screenshots).
+    * Includes a **Toolbar** providing access to various features:
+        * **Modify Account Data:** Allows users to edit their profile information.
+        * **Select Vehicles:** Enables users (especially business users) to choose the vehicle(s) for route calculation.
+        * **"How to Use":** Provides a tutorial explaining the application's main features.
+        * **Info:** Displays miscellaneous information and potentially credits or links.
+        * **(Implied):** Logout functionality.
+    * Displays trip statistics once a route is calculated.
+
+    ![dashbpard](docs/dashboard.png)
+    ![vehicle](docs/vehicles.png)
+    ![trip page](docs/trip.png)
+
